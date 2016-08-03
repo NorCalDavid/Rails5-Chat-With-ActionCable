@@ -1,0 +1,47 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+/* Creative Tim Paper Pro Theme */
+@import "theme/paper-dashboard.scss";
+@import "theme/themify-icons.scss";
+
+/* Plugins */
+@import "plugins/parallax-slider/parallax-slider.scss";
+@import "plugins/j-box/jBox.scss";
+@import "plugins/j-box/themes/ModalBorder.scss";
+@import "plugins/j-box/themes/NoticeBorder.scss";
+@import "plugins/j-box/themes/TooltipBorder.scss";
+@import "plugins/j-box/themes/TooltipDark.scss";
+@import "plugins/big-video/bigvideo.scss";
+@import "plugins/full-calendar/fullcalendar.scss";
+@import "plugins/full-calendar/scheduler.scss";
+@import "plugins/datetime-picker/jquery.datetimepicker.min.scss";
+@import "plugins/timepicker/bootstrap-timepicker.scss";
+@import "plugins/upload-file/uploadfile.scss";
+@import "plugins/upload-file/uploadfile.custom.scss";
+@import "plugins/validation-engine/validationEngine.jquery.scss";
+@import "plugins/chosen/chosen.scss";
+@import "plugins/fancybox/jquery.fancybox.scss";
+@import "plugins/fancybox/jquery.fancybox-buttons.scss";
+@import "plugins/fancybox/jquery.fancybox-thumbs.scss";
+@import "plugins/isotope/isotope-custom.scss";
+
+/* Custom CSS */
+@import "custom/custom-layout.scss";
+@import "custom/custom-align.scss";

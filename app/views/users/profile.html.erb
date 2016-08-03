@@ -1,0 +1,261 @@
+<div class="page-header header-filter"	data-parallax="active" style="background-image: url('https://s3-us-west-1.amazonaws.com/daviduli-main/assets/default-artwork/city.jpg');"></div>
+
+<div class="main main-raised">
+	<div class="profile-content">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-xs-6 col-xs-offset-3">
+				   <div class="profile">
+						<div class="avatar">
+							<% if @user.image_file_name.nil? %>
+								<%= image_tag(@user.picture, class: "img-circle img-responsive img-raised") %>
+							<% else %>
+                <%= link_to @user.image(:original), rel: "fancybox-thumb", :class => "fancybox-thumb margin-bottom-10", title: @user.name do %>
+                  <%= image_tag(@user.picture, class: "img-circle img-responsive img-raised") %>
+                <% end %>
+              <% end %>
+						</div>
+						<div class="name">
+							<h1 class="title"><%= @user.name %></h1>
+							<h4>Member Since: <%= @user.created_at.strftime("%b %Y") %></h4>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="profile-tabs no-margin-bottom">
+						<div class="nav-align-center">
+							<ul class="nav nav-pills nav-pills-icons" role="tablist">
+								<li class="active">
+									<a href="#projects" role="tab" data-toggle="tab">
+										<i class="material-icons">important_devices</i>
+										Projects
+									</a>
+								</li>
+								
+								<li>
+									<a href="#settings" role="tab" data-toggle="tab">
+										<i class="material-icons">build</i>
+										User Settings
+									</a>
+								</li>
+								
+								<li>
+									<a href="#connections" role="tab" data-toggle="tab">
+										<i class="material-icons">people</i>
+										Friends
+									</a>
+								</li>
+
+								<li>
+									<a href="#messages" role="tab" data-toggle="tab">
+										<i class="material-icons">chat</i>
+										Messages
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- End Profile Tabs -->
+				</div>
+			</div>
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="projects">
+					<div class="row margin-bottom-100">
+						<div class="col-md-7 col-md-offset-1">
+							<div class="row">
+								<div class="col-md-12">
+									<h4 class="title">Current Projects</h4>
+									<div class="row collections">
+										<% if @user.current_accessible_projects.count == 0 %>
+											<h1 class="title text-center text-muted bordered border-rounded">No Current Projects</h1>
+										<% else %>
+											<% @user.current_accessible_projects.each do |project| %>
+												<div class="col-md-6">
+													<h4 class="text-primary category-social no-margin-bottom margin-left-10">
+														<% if project.owner?(@user) %>
+			    										<i class="fa fa-user"></i> Owner
+														<% elsif project.developer?(@user) %>
+			    										<i class="fa fa-code"></i> Developer
+			    									<% elsif trip.manager_tester?(@user) %>
+			    										<i class="fa fa-users"></i> Manager / <i class="fa fa-check-square-o"></i> Tester	
+														<% elsif project.manager?(@user) %>
+			    										<i class="fa fa-users"></i> Manager
+														<% elsif project.manager?(@user) %>
+			    										<i class="fa fa-check-square-o"></i> Tester
+														<% elsif project.viewer?(@user) %>
+			    										<i class="fa fa-eye"></i> Viewer
+			    									<% end %>
+			    								</h4>
+
+													<div class="card card-background" style="background-image: url('<%= project.picture %>')">
+														<%= link_to project_path(project) do %>
+															<div class="content">
+																<h4 class="card-title"><%= project.name %></h4>
+																<p class="card-description"><%=  %></p>
+															</div>
+														<% end %>
+													</div>
+												</div>
+											<% end %>
+										<% end %>
+									</div>
+								</div> 
+							</div> 
+							
+							<div class="row">
+								<div class="col-md-12">
+									<h4 class="title">Previous Projects</h4>
+									<div class="row collections">
+										<% if @user.previous_accessible_projects.count == 0 %>
+											<h1 class="title text-center text-muted bordered border-rounded">No Previous Projects</h1>
+										<% else %>
+											<% @user.previous_accessible_projects.each do |project| %>
+												<div class="col-md-6">
+													<h4 class="text-primary category-social no-margin-bottom margin-left-10">
+														<% if project.owner?(@user) %>
+			    										<i class="fa fa-user"></i> Owner
+														<% elsif project.developer?(@user) %>
+			    										<i class="fa fa-code"></i> Developer
+			    									<% elsif trip.manager_tester?(@user) %>
+			    										<i class="fa fa-users"></i> Manager / <i class="fa fa-check-square-o"></i> Tester	
+														<% elsif project.manager?(@user) %>
+			    										<i class="fa fa-users"></i> Manager
+														<% elsif project.manager?(@user) %>
+			    										<i class="fa fa-check-square-o"></i> Tester
+														<% elsif project.viewer?(@user) %>
+			    										<i class="fa fa-eye"></i> Viewer
+			    									<% end %>
+			    								</h4>
+
+													<div class="card card-background" style="background-image: url('<%= project.picture %>')">
+														<%= link_to project_path(project) do %>
+															<div class="content">
+																<h4 class="card-title"><%= project.name %></h4>
+																<p class="card-description"><%=  %></p>
+															</div>
+														<% end %>
+													</div>
+												</div>
+											<% end %>
+										<% end %>
+									</div>
+								</div> 
+							</div> 
+						</div>
+
+						<div class="col-md-2 col-md-offset-1 stats margin-top-50">
+							<h4 class="title">Current Projects</h4>
+							<ul class="list-unstyled">
+								<li>Developer for: <b><%= current_user.developing_projects.where.not(status: "deployed").count %></b> Project<%= 's' unless current_user.developing_projects.where.not(status: "deployed").count == 1 %></li>
+								<li>Manager for: <b><%= current_user.managing_projects.where.not(status: "deployed").count %></b> Project<%= 's' unless current_user.managing_projects.where.not(status: "deployed").count == 1 %></li>
+								<li>Tester for: <b><%= current_user.testing_projects.where.not(status: "deployed").count %></b> Project<%= 's' unless current_user.testing_projects.where.not(status: "deployed").count == 1 %></li>
+								<li>Viewer for: <b><%= current_user.viewable_projects.where.not(status: "deployed").count %></b> Project<%= 's' unless current_user.viewable_projects.where.not(status: "deployed").count == 1 %></li>
+							</ul>
+							<hr />
+							<h4 class="title">Past Projects</h4>
+							<ul class="list-unstyled">
+								<li>Developer for: <b><%= current_user.developing_projects.having_status(:deployed).count %></b> Project<%= 's' unless current_user.developing_projects.where(status: "deployed").count == 1 %></li>
+								<li>Manager for: <b><%= current_user.managing_projects.having_status(:deployed).count %></b> Project<%= 's' unless current_user.managing_projects.where(status: "deployed").count == 1 %></li>
+								<li>Tester for: <b><%= current_user.testing_projects.having_status(:deployed).count %></b> Project<%= 's' unless current_user.testing_projects.where(status: "deployed").count == 1 %></li>
+								<li>Viewer for: <b><%= current_user.viewable_projects.having_status(:deployed).count %></b> Project<%= 's' unless current_user.viewable_projects.where(status: "deployed").count == 1 %></li>
+							</ul>
+							<hr />
+							<h4 class="title">Connections</h4>
+							<ul class="list-unstyled">
+								<li>Friends: <b><%# current_user.friends.count %></b></li>
+								<li>Friended By: <b><%# current_user.inverse_friends.count %></b></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="settings">
+					<div class="row margin-bottom-100">
+						<div class="col-md-7 col-md-offset-1">
+							<div class="row">
+								<div class="col-md-12">
+									<h4 class="title">User Profile</h4>
+								</div> 
+							</div> 
+						</div> 
+					</div>
+				</div> 
+				
+				<div class="tab-pane" id="connections">
+					<div class="row margin-bottom-100">
+						<div class="col-md-7 col-md-offset-1">
+							<div class="row">
+								<div class="col-md-12">
+									<h4 class="title">User Friends</h4>
+								</div> 
+							</div> 
+						</div> 
+					</div>
+				</div> 
+
+				<div class="tab-pane" id="messages">
+					<div class="row margin-bottom-100">
+						<div class="col-md-7 col-md-offset-1">
+							<div class="row">
+								<div class="col-md-12">
+									<h4 class="title">User Messages</h4>
+								</div> 
+							</div> 
+						</div> 
+					</div>
+				</div> 
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+  $(".fancybox-thumb").fancybox({
+    // wrapCSS    : 'fancybox-custom',
+    closeClick : true,
+    closeBtn  : true,
+    arrows    : true,
+    nextClick : true,
+
+    openEffect : 'fade',
+    nextEffect : 'fade',
+    previousEffect : 'fade',
+
+    openSpeed : 'slow',
+    nextSpeed : 'slow',
+    previousSpeed : 'slow',
+
+    helpers : {
+      title : {
+        type : 'inside'
+      },
+      overlay : {
+        css : {
+          'background' : 'rgba(238,238,238,0.85)'
+        }
+      }
+    }
+  });  
+</script>
+
+<script>
+  var images = [
+                  "https://s3-us-west-1.amazonaws.com/vacation-planner/assets/homepage/VacationHome-Homepage-LowRes.jpg",
+                ].sort(function() { return 0.5 - Math.random() });
+  
+  $("#profile-page-wrapper").backstretch(images, {  fade: 1500, duration: 3500 });
+
+  $(".valign__middle").each(function() {
+    $(this).css("padding-top", $(this).parent().height() / 2 - $(this).height() / 2);
+  });
+  $(window).resize(function() {
+    $(".valign__middle").each(function() {
+    $(this).css("padding-top", $(this).parent().height() / 2 - $(this).height() / 2);
+    });
+  });
+</script>

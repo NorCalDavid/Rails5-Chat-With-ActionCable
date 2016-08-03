@@ -1,0 +1,393 @@
+.grid {
+	height:100% !important;
+	width: 100% !important;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.grid-sizer,
+.grid-item { 
+   @media (max-width: $screen-xs-max) {
+    width: 80%; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 50%; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 30%; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+    width: 30%; /* fluid 4 columns */
+  }
+}
+
+.grid-sizer,
+.grid-item-card { 
+   margin: 25px;
+   @media (max-width: $screen-xs-max) {
+    width: 95%; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 95%; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 45%; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+    width: 45%; /* fluid 4 columns */
+  }
+
+   .grid-item-card-header {
+    // margin: 15px 0;
+    padding: 5px 10px 5px 20px;
+
+    .actions {
+      padding: 10px;
+      margin-left: 10px !important;
+
+      a {
+        padding-left: 5px;
+      }
+    }
+   }
+}
+
+.database-sizer,
+.database-table-card { 
+   margin: 25px !important;
+	 @media (max-width: $screen-xs-max) {
+    width: 75% !important; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 33% !important; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 20% !important; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+	  width: 20% !important; /* fluid 4 columns */
+	}
+
+   .database-table-card-header {
+    // margin: 15px 0;
+    padding: 5px 10px 5px 20px;
+
+    .actions {
+      padding: 10px;
+      margin-left: 10px !important;
+
+      a {
+        padding-left: 5px;
+      }
+    }
+   }
+}
+
+.grid-image-sizer,
+.grid-image { 
+   @media (max-width: $screen-xs-max) {
+    width: 75%; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 60%; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 23%; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+    width: 23%; /* fluid 4 columns */
+  }
+}
+
+.grid-user-sizer,
+.grid-user { 
+   @media (max-width: $screen-xs-max) {
+    width: 95% !important; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 95% !important; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 47% !important; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+    width: 47% !important; /* fluid 4 columns */
+  }
+}
+
+.grid-memory {
+  margin: 0 !important;
+}
+
+.grid-memory-sizer,
+.grid-memory { 
+   @media (max-width: $screen-xs-max) {
+    width: 95%; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 95%; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 47%; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+    width: 47%; /* fluid 4 columns */
+  }
+}
+
+.grid-memory-wide { 
+   @media (max-width: $screen-xs-max) {
+    width: 95% !important; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 95% !important; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 70% !important; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+    width: 70% !important; /* fluid 4 columns */
+  }
+}
+
+.grid-memory-narrow { 
+   @media (max-width: $screen-xs-max) {
+    width: 45% !important; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 45% !important; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 24% !important; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+    width: 24% !important; /* fluid 4 columns */
+  }
+}
+
+.grid-video {
+  margin: 0 !important;
+}
+
+.grid-video-sizer,
+.grid-video { 
+   @media (max-width: $screen-xs-max) {
+    width: 95%; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 95%; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 47%; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+    width: 47%; /* fluid 4 columns */
+  }
+}
+
+.grid-video-wide { 
+   @media (max-width: $screen-xs-max) {
+    width: 95% !important; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 95% !important; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 70% !important; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+    width: 70% !important; /* fluid 4 columns */
+  }
+}
+
+.grid-video-narrow { 
+	 @media (max-width: $screen-xs-max) {
+    width: 45% !important; /* fluid 1 column */
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    width: 45% !important; /* fluid 2 columns */
+  }
+
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    width: 24% !important; /* fluid 3 columns */
+  }
+
+  @media (min-width: $screen-lg-min) {
+	  width: 24% !important; /* fluid 4 columns */
+	}
+}
+
+.grid-item a, .grid-image a, .grid-memory a, .grid-video a {
+	text-decoration: none;
+}
+
+.option-set .selected, .memory-option-set .selected, .video-option-set .selected {
+
+}
+ 
+.iso-button {
+  display: inline-block;
+  padding: 0.5em 1.0em;
+  margin-bottom: 10px;
+  background: #EEE;
+  border: none;
+  border-radius: 7px;
+  background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
+  color: #222;
+  font-family: sans-serif;
+  font-size: 16px;
+  text-shadow: 0 1px white;
+  cursor: pointer;
+}
+
+.iso-button:hover {
+  background-color: #8CF;
+  text-shadow: 0 1px hsla(0, 0%, 100%, 0.5);
+  color: #222;
+}
+
+.iso-button:active,
+.iso-button.is-checked {
+  background-color: #28F;
+}
+
+.iso-button.is-checked {
+  color: white;
+  text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8);
+}
+
+.iso-button:active {
+  box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
+}
+
+/* ---- button-group ---- */
+
+.iso-button-group:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.iso-button-group .button {
+  float: left;
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 1px;
+}
+
+.iso-button-group .button:first-child { border-radius: 0.5em 0 0 0.5em; }
+.iso-button-group .button:last-child { border-radius: 0 0.5em 0.5em 0; }
+
+
+
+/* Start: Recommended Isotope styles */
+
+/**** Isotope Filtering ****/
+ .isotope-item {
+    z-index: 2;
+}
+.isotope-hidden.isotope-item {
+    pointer-events: none;
+    z-index: 1;
+}
+/**** Isotope CSS3 transitions ****/
+ .isotope, .isotope .isotope-item {
+    -webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    -ms-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+}
+.isotope {
+    -webkit-transition-property: height, width;
+    -moz-transition-property: height, width;
+    -ms-transition-property: height, width;
+    -o-transition-property: height, width;
+    transition-property: height, width;
+}
+.isotope .isotope-item {
+    -webkit-transition-property: -webkit-transform, opacity;
+    -moz-transition-property: -moz-transform, opacity;
+    -ms-transition-property: -ms-transform, opacity;
+    -o-transition-property: -o-transform, opacity;
+    transition-property: transform, opacity;
+}
+/**** disabling Isotope CSS3 transitions ****/
+ .isotope.no-transition, .isotope.no-transition .isotope-item, .isotope .isotope-item.no-transition {
+    -webkit-transition-duration: 0s;
+    -moz-transition-duration: 0s;
+    -ms-transition-duration: 0s;
+    -o-transition-duration: 0s;
+    transition-duration: 0s;
+}
+/* End: Recommended Isotope styles */
+
+/* disable CSS transitions for containers with infinite scrolling*/
+ .isotope.infinite-scrolling {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+/* The Magnificent Clearfix: nicolasgallagher.com/micro-clearfix-hack/ */
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+.date {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.author {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}

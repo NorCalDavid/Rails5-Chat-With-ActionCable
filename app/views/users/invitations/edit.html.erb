@@ -1,0 +1,253 @@
+<div class="screen" id="screen-1" data-video="<%= devise_background_video %>"> 
+  <div class="col-md-offset-3 col-md-6 margin-top-100">
+    <div id="accept-invitation-form" class="wizard-container"> 
+      <div class="card wizard-card wizard-card-transparent ct-wizard-azzure" id="accept-invitation-wizard">
+        <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
+          <%= f.hidden_field :invitation_token %>
+
+          <div class="wizard-header">
+            <h3>
+              <b>Accept</b> New User Invitation <br>
+              <small>Complete your Account Registration</small>
+            </h3>
+          </div>
+          
+          <ul>
+            <li><a href="#user-details" data-toggle="tab">User Details</a></li>
+          </ul>
+
+          <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+              <div class="error-messages">
+                <%= devise_error_messages! %>
+              </div>
+            </div>
+          </div> 
+            
+          <div class="tab-content">
+            <div class="tab-pane" id="user-details">
+              <div class="row">
+                <h4 class="info-text"> Enter your account information below.</h4>
+                <div class="col-md-offset-1 col-md-10">
+                  <% if f.object.class.require_password_on_accepting %>
+                    <div class="row margin-bottom-20">
+                      <div class="col-md-4">
+                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                          <div class="fileinput-new thumbnail img-circle img-raised">
+                            <%= image_tag "https://s3-us-west-1.amazonaws.com/pawlivingtester/assets/default-artwork/upload-icon.png", class: "img-circle img-raised img-responsive" %>
+                          </div>
+                          <div class="fileinput-preview fileinput-exists thumbnail img-rounded img-raised img-responsive"></div>
+                          <div>
+                            <span class="btn btn-raised btn-round btn-default btn-file btn-xs">
+                              <span class="fileinput-new">
+                                <i class="fa fa-plus"></i> Add Photo
+                              </span>
+                              
+                              <span class="fileinput-exists">
+                                <i class="fa fa-wrench"></i> Change
+                              </span>
+                              <%= f.file_field :image, id: "wizard-picture" %>
+                            </span>
+                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists btn-xs" data-dismiss="fileinput">
+                              <i class="fa fa-times"></i> Remove
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-8">
+                        <div class="row margin-bottom-20">
+                          <div class="col-md-12">
+                            <div class="form-group label-floating">
+                              <%= f.label "Password", class: "control-label" %><br/>
+                              <%= f.password_field :password, 
+                                placeholder: "Minimum of 8 Letter and/or Numbers", 
+                                value: nil,
+                                autofill: "off",
+                                id: "password",
+                                class: "form-control validate[required[password],minSize[8]] step-2-required-field",
+                                data: { "prompt-position" => "bottomLeft" } %>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="row margin-bottom-20">
+                          <div class="col-md-12">
+                            <div class="form-group label-floating">
+                            <%= f.label "Confirm Password", class: "control-label" %>
+                            <%= f.password_field :password_confirmation, 
+                              class: "form-control validate[required[password],equals[password]] step-2-required-field",
+                              data: { "prompt-position" => "bottomLeft" } %>
+                            </div>
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+                  <% end -%>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-footer">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="pull-right">
+                  <input type='button' class='btn btn-next btn-fill btn-primary btn-wd btn-sm' name='next' value='Next' />
+                  <%= f.submit t("devise.invitations.edit.submit_button"), :class => 'btn btn-finish btn-fill btn-primary btn-wd btn-sm', data: { disable_with: 'Uploading' } %>
+                </div>
+                
+                <div class="pull-left">
+                  <%= link_to "Cancel", main_app.root_path, class: "btn btn-fill btn-warning btn-wd btn-sm" %>
+                </div>
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </div>  
+        <% end %>
+      </div> <!-- wizard container -->
+    </div>
+  </div>
+</div>
+
+<script src="http://vjs.zencdn.net/c/video.js"></script>
+
+<script>
+
+  $(".valign__middle").each(function() {
+    $(this).css("padding-top", $(this).parent().height() / 2 - $(this).height() / 2);
+  });
+  $(window).resize(function() {
+    $(".valign__middle").each(function() {
+    $(this).css("padding-top", $(this).parent().height() / 2 - $(this).height() / 2);
+    });
+  });
+
+  var BV = new $.BigVideo();
+  BV.init();
+  if (Modernizr.touch) {
+      BV.show('<%= homepage_background_poster %>');
+  } else {
+      BV.show('<%= homepage_background_video %>',{ambient:true});
+  }
+
+  BV.getPlayer().on("ended", function() {
+    var player = BV.getPlayer();
+    player.pause();
+    player.currentTime(29);
+  });
+</script>
+
+<script>
+  
+  $("#accept-invitation-form").ready(function() {
+    /*  Activate the tooltips      */
+    $('[rel="tooltip"]').tooltip();
+
+    var wizard = $('#accept-invitation-wizard');
+      
+    wizard.bootstrapWizard({ 'tabClass': 'nav nav-pills',
+                             'nextSelector': '.btn-next',
+                             'previousSelector': '.btn-previous',
+         
+      onInit : function(tab, navigation, index){
+        //check number of tabs and fill the entire row
+        var $total = navigation.find('li').length;
+        $width = 100/$total;
+       
+        $display_width = $(document).width();
+       
+        if($display_width < 600 && $total > 3){ $width = 50; }
+     
+        navigation.find('li').css('width',$width + '%'); 
+      },
+      onNext: function(tab, navigation, index){
+        if(index == 1){
+            return validateFirstStep();
+        } else if(index == 2){
+            return validateSecondStep();
+        } //etc.    
+      },
+      onTabClick : function(tab, navigation, index){
+        // Disable the posibility to click on tabs
+        return false;
+      }, 
+      onTabShow: function(tab, navigation, index) {
+        var $total = navigation.find('li').length;
+        var $current = index+1;
+        
+        var wizard = navigation.closest('.wizard-card');
+        
+        // If it's the last tab then hide the last button and show the finish instead
+        if($current >= $total) { $(wizard).find('.btn-next').hide();
+                                 $(wizard).find('.btn-finish').show();
+        } else { $(wizard).find('.btn-next').show();
+                 $(wizard).find('.btn-finish').hide();
+        };
+      }
+    });
+    
+    $('[data-toggle="image-wizard-radio"]').click(function(){
+      wizard = $(this).closest('.wizard-card');
+      wizard.find('[data-toggle="wizard-radio"]').removeClass('active');
+      $(this).addClass('active');
+      $(wizard).find('[type="radio"]').removeAttr('checked');
+      $(this).find('[type="radio"]').attr('checked','true');
+    });
+    
+    $('[data-toggle="image-wizard-checkbox"]').click(function(){
+      if( $(this).hasClass('active')){ $(this).removeClass('active');
+                                       $(this).find('[type="checkbox"]').removeAttr('checked');
+      } else { $(this).addClass('active');
+               $(this).find('[type="checkbox"]').attr('checked','true');
+      };
+    });
+    
+    $height = $(document).height();
+    $('.set-full-height').css('height',$height);
+
+    function validateFirstStep(){
+      var validity = []
+      var requiredFields1 = $("input.step-1-required-field")
+
+      for (i = 0; i < requiredFields1.length; i++) { 
+        validity.push($(requiredFields1[i]).validationEngine('validate'));
+      };
+
+      return !validity.includes(false);
+    };
+    function validateSecondStep(){
+      var validity = []
+      var requiredFields2 = $("input.step-2-required-field")
+
+      for (i = 0; i < requiredFields2.length; i++) { 
+        validity.push($(requiredFields2[i]).validationEngine('validate'));
+      };
+
+      return !validity.includes(false);
+    };
+
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+            
+        reader.onload = function (e) {
+          $('#wizardPicturePreview').attr('src', e.target.result);
+        }  
+        reader.readAsDataURL(input.files[0]);
+      }
+    };
+    
+    $("#wizard-picture").change(function(){
+        readURL(this);
+    });
+  });
+
+  $("#cancel-image-wizard").click(function(e) {
+    $(this).closest('form').find(".form-control").val("");
+  });
+</script>
+

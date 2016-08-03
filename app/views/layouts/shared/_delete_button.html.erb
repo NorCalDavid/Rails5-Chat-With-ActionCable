@@ -1,0 +1,137 @@
+<% if button_style == "btn-icon" %>
+  <a href="javascript:void(0);" onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' 
+     class="btn btn-simple btn-danger btn-icon table-action remove"
+     rel="tooltip" title='<%= "Delete #{object_type}" %>'>
+    <i class="text-danger fa fa-trash"></i>
+  </a>
+<% elsif button_style == "btn-group-icon" %>
+  <a type="button" href="javascript:void(0);" onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' 
+     class="btn btn-danger btn-icon btn-xs"
+     rel="tooltip" title='<%= "Delete #{object_type}" %>'>
+    <i class="fa fa-trash"></i>
+  </a>
+<% elsif button_style == "icon-minus" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' class=""
+     rel="tooltip" title='<%= "Delete #{object_type}" %>'>
+    <i class="text-danger fa fa-minus-circle" aria-hidden="true"></i>
+  </a>
+<% elsif button_style == "btn-simple" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' class=""
+     rel="tooltip" title='<%= "Delete #{object_type}" %>'>
+    <i class="fa fa-trash"></i> Destroy <%= object_type %>
+  </a>
+<% elsif button_style == "btn-nav" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>'>
+    <i class="material-icons">delete_forever</i> Destroy <%= object_type %>
+  </a>
+<% elsif button_style == "btn-nav2" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>'>
+    Destroy <%= object_type %>
+  </a>
+<% elsif button_style == "btn-sm" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' class="btn btn-sm btn-fill btn-danger"
+     rel="tooltip" title='<%= "Delete #{object_type}" %>'>
+    <i class="fa fa-trash"></i> Destroy
+  </a>
+<% elsif button_style == "btn-xs" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' class="btn btn-xs btn-fill btn-danger"
+     rel="tooltip" title='<%= "Delete #{object_type}" %>'>
+    <i class="fa fa-trash"></i> Destroy
+  </a>
+<% elsif button_style == "btn-xs-block" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' class="btn btn-xs btn-block btn-fill btn-danger"
+     rel="tooltip" title='<%= "Delete #{object_type}" %>'>
+    <i class="fa fa-trash"></i> Destroy
+  </a>
+<% elsif button_style == "btn-cancel-registration" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' class="btn btn-sm btn-fill btn-danger btn-round"
+     rel="tooltip" title='<%= "Delete #{object_type}" %>'>
+    <i class="fa fa-times"></i> Cancel My Account
+  </a>
+<% elsif button_style == "btn-friendship" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' class="btn btn-sm btn-fill btn-danger btn-round"
+     rel="tooltip" title='<%= "Delete Your #{object_type} With This User" %>'>
+    <i class="fa fa-times"></i> Delete Friendship
+  </a>
+<% elsif button_style == "btn-relationship" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' class="btn btn-sm btn-fill btn-danger btn-round"
+     rel="tooltip" title='<%= "Delete #{object_type}" %>'>
+    <i class="fa fa-times"></i> Delete <%= object_type %>
+  </a>
+<% elsif button_style == "btn-fab" %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' class="btn btn-fab btn-danger"
+     rel="tooltip" title='<%= "Delete Your #{object_type} With This User" %>'>
+    <i class="material-icons">remove</i>
+  </a>
+<% else %>
+  <a href="javascript:void(0);" 
+     onclick='<%= "callDelete(\"#{object_type}\", \"#{url}\")" %>' class="btn btn-fill btn-danger"
+     rel="tooltip" title='<%= "Delete #{object_type}" %>'>
+    <i class="fa fa-trash"></i> Destroy
+  </a>
+<% end %>
+
+<script>
+  function successMessage(resourceName, redirectUrl) {
+    sweetAlert({ title: "Success", 
+                html: '<h2>' + resourceName + ' Destroyed!</h2>' +
+                      '<br />',   
+                 type: "success" 
+    }, function() {
+      window.location.href = redirectUrl;
+    });
+  };
+
+  function errorMessage(resourceName, redirectUrl) {
+    sweetAlert({ title: "Failed", 
+                html: '<h2>Unable To Destroy ' + resourceName + '!</h2>' +
+                      '<br />',   
+                 type: "error" 
+    }, function() {
+      window.location.href = redirectUrl;
+    });
+  };
+
+  function callDelete(resourceName, url) {
+    swal({
+      title: ('Delete ' + resourceName + '?'),
+      html: '<br />' +
+            '<h2 class="text-danger">You won\'t be able to revert this!</h2>' +
+            '<br />',
+      type: 'error',
+      width: 500,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }, function() {
+
+      var config = { url: url,
+                     type: 'GET',
+                     dataType: 'JSON' }
+
+      $.ajax(config)
+
+      .done(function(e, data, status, xhr, respons) { 
+        console.log("Success: ReDirect To:" + e.url);
+        successMessage(resourceName, e.url);
+      })
+      
+      .fail(function(e, data, status, xhr, respons) { 
+        console.log("Error"); 
+        errorMessage(resourceName, e.url);
+      }); 
+    });
+  };
+</script>

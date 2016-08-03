@@ -1,0 +1,77 @@
+<div class="sidebar" data-background-color="brown" data-active-color="danger">
+<!--
+Tip 1: you can change the color of the sidebar's background using: data-background-color="white | brown"
+Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+-->
+	<div class="logo">
+		<%= link_to main_app.root_path, class: "simple-text" do %>
+      David Uli
+    <% end %>
+	</div>
+	
+	<div class="logo logo-mini">
+		<%= link_to main_app.root_path, class: "simple-text" do %>
+      DU
+    <% end %>
+	</div>
+		
+	<div class="sidebar-wrapper">
+		<div class="user">
+			<div class="photo">
+				<% if user_signed_in? %>
+					<%= image_tag(current_user.thumb) %>
+				<% else %>
+					<img src="https://s3-us-west-1.amazonaws.com/daviduli-template/assets/default-artwork/user-avatar.jpg" />
+				<% end %>
+			</div>
+			
+			<div class="info">
+				<a data-toggle="collapse" href="#collapseExample" class="collapsed">
+					Sample User
+					<b class="caret"></b>
+				</a>
+				
+				<div class="collapse" id="collapseExample">
+					<ul class="nav">
+						<% if user_signed_in? %>
+							<li><%= link_to "Profile", main_app.profile_path %></li>
+							<li><%= link_to 'Edit Profile', main_app.edit_user_registration_path %></li>
+							<li><%= link_to "Logout", main_app.destroy_user_session_path, method: :get %></li>
+						<% else %>
+							<li><%= link_to 'Login', main_app.new_user_session_path %></li>
+            	<li><%= link_to 'Register', main_app.new_user_registration_path %></li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<ul class="nav">
+			<li>
+				<a data-toggle="collapse" href="#dashboardOverview">
+					<i class="ti-panel"></i>
+					<p>Collapse
+						<b class="caret"></b>
+					</p>
+				</a>
+				
+				<div class="collapse" id="dashboardOverview">
+					<ul class="nav">
+						<li><a href="#panda">Collapse 1</a></li>
+						<li><a href="#panda">Collapse2</a></li>
+					</ul>
+				</div>
+			</li>
+
+			<li>
+				<a href="calendar.html">
+					<i class="ti-calendar"></i>
+					<p>Simple Link</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+	

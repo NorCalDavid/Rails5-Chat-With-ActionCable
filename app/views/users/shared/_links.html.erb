@@ -1,0 +1,57 @@
+<nav class="navbar navbar-transparent">
+  <div class="collapse navbar-collapse" id="example-navbar-icons">
+    <ul class="nav navbar-nav navbar-center">
+      <li class="dropdown">
+        <a href="#pablo" class="dropdown-toggle text-primary" data-toggle="dropdown">
+          <i class="fa fa-bars" aria-hidden="true"></i> Password Help
+          <b class="caret"></b>
+        </a>
+        
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li class="dropdown-header text-center">Password/Login Help</li>
+          <li class="divider"></li>
+          
+          <li>
+            <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+              <%= link_to "Forgot Your Password?", new_password_path(resource_name) %>
+            <% end -%>
+          </li>
+          
+          <li>
+            <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+              <%= link_to "Send Confirmation Instructions?", new_confirmation_path(resource_name) %>
+            <% end -%>
+          </li>
+          
+          <li>
+            <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+              <%= link_to "Send Unlock Instructions?", new_unlock_path(resource_name) %>
+            <% end -%>
+          </li>
+          
+          <li>
+            <%- if devise_mapping.omniauthable? %>
+              <%- resource_class.omniauth_providers.each do |provider| %>
+                <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
+              <% end -%>
+            <% end -%>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col-md-offset-1 col-md-10">
+    <div class="forgot text-center">
+      <%- if controller_name != 'sessions' %>
+        Already Have an Account? <%= link_to "Click Here To Log In", new_session_path(resource_name), class: "text-danger" %><br />
+      <% end -%>
+
+      <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+        Don't Have an Account? <%= link_to "Click Here To Register", new_registration_path(resource_name), class: "text-danger" %><br />
+      <% end -%>
+    </div>
+  </div>
+</div>

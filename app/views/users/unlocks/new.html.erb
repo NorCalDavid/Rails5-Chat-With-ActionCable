@@ -1,0 +1,181 @@
+<div class="screen" id="screen-1" data-video="<%= devise_background_video %>"> 
+  <div class="col-md-offset-3 col-md-6 margin-top-100">
+    <div id="new-unlock-form" class="wizard-container"> 
+      <div class="card wizard-card wizard-card-transparent ct-wizard-azzure" id="new-unlock-wizard">
+        <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+
+          <div class="wizard-header">
+            <h3>
+              <b>Account Locked?</b> <br>
+              <small>Email Me Unlock Instructions</small>
+            </h3>
+          </div>
+          
+          <ul>
+            <li><a href="#credentials" data-toggle="tab">User Details</a></li>
+          </ul>
+
+          <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+              <div class="error-messages">
+                <%= devise_error_messages! %>
+              </div>
+            </div>
+          </div> 
+          
+          <div class="tab-content">
+            <div class="tab-pane" id="credentials">
+              <div class="row">
+                <h4 class="info-text"> Enter your account information below.</h4>
+                <div class="col-md-offset-1 col-md-10">
+                  <div class="row margin-bottom-20">
+                    <div class="col-md-12">
+                      <div class="form-group label-floating">
+                        <%= f.label :email, class: "control-label" %><br />
+                        <%= f.email_field :email, 
+                          class: "form-control validate[required][custom[email]] step-1-required-field",
+                          data: { "prompt-position" => "bottomLeft" } %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <%= render "users/shared/links" %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-footer">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="pull-right">
+                  <input type='button' class='btn btn-next btn-fill btn-primary btn-wd btn-sm' name='next' value='Next' />
+                  <%= f.submit "Submit", :class => 'btn btn-finish btn-fill btn-primary btn-wd btn-sm' %>
+                </div>
+                
+                <div class="pull-left">
+                  <%= link_to "Cancel", main_app.root_path, class: "btn btn-fill btn-warning btn-wd btn-sm" %>
+                </div>
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </div>  
+        <% end %>
+      </div> <!-- wizard container -->
+    </div>
+  </div>
+</div>
+
+<script src="http://vjs.zencdn.net/c/video.js"></script>
+
+<script>
+
+  $(".valign__middle").each(function() {
+    $(this).css("padding-top", $(this).parent().height() / 2 - $(this).height() / 2);
+  });
+  $(window).resize(function() {
+    $(".valign__middle").each(function() {
+    $(this).css("padding-top", $(this).parent().height() / 2 - $(this).height() / 2);
+    });
+  });
+
+  var BV = new $.BigVideo();
+  BV.init();
+  if (Modernizr.touch) {
+      BV.show('<%= homepage_background_poster %>');
+  } else {
+      BV.show('<%= homepage_background_video %>',{ambient:true});
+  }
+
+  BV.getPlayer().on("ended", function() {
+    var player = BV.getPlayer();
+    player.pause();
+    player.currentTime(29);
+  });
+</script>
+
+<script>
+  
+  $("#new-unlock-form").ready(function() {
+    /*  Activate the tooltips      */
+    $('[rel="tooltip"]').tooltip();
+
+    var wizard = $('#new-unlock-wizard');
+      
+    wizard.bootstrapWizard({ 'tabClass': 'nav nav-pills',
+                             'nextSelector': '.btn-next',
+                             'previousSelector': '.btn-previous',
+         
+      onInit : function(tab, navigation, index){
+        //check number of tabs and fill the entire row
+        var $total = navigation.find('li').length;
+        $width = 100/$total;
+       
+        $display_width = $(document).width();
+       
+        if($display_width < 600 && $total > 3){ $width = 50; }
+     
+        navigation.find('li').css('width',$width + '%'); 
+      },
+      onNext: function(tab, navigation, index){
+        if(index == 1){
+            return validateFirstStep();
+        } else if(index == 2){
+            return validateSecondStep();
+        } //etc.    
+      },
+      onTabClick : function(tab, navigation, index){
+        // Disable the posibility to click on tabs
+        return false;
+      }, 
+      onTabShow: function(tab, navigation, index) {
+        var $total = navigation.find('li').length;
+        var $current = index+1;
+        
+        var wizard = navigation.closest('.wizard-card');
+        
+        // If it's the last tab then hide the last button and show the finish instead
+        if($current >= $total) { $(wizard).find('.btn-next').hide();
+                                 $(wizard).find('.btn-finish').show();
+        } else { $(wizard).find('.btn-next').show();
+                 $(wizard).find('.btn-finish').hide();
+        };
+      }
+    });
+    
+    $('[data-toggle="image-wizard-radio"]').click(function(){
+      wizard = $(this).closest('.wizard-card');
+      wizard.find('[data-toggle="wizard-radio"]').removeClass('active');
+      $(this).addClass('active');
+      $(wizard).find('[type="radio"]').removeAttr('checked');
+      $(this).find('[type="radio"]').attr('checked','true');
+    });
+    
+    $('[data-toggle="image-wizard-checkbox"]').click(function(){
+      if( $(this).hasClass('active')){ $(this).removeClass('active');
+                                       $(this).find('[type="checkbox"]').removeAttr('checked');
+      } else { $(this).addClass('active');
+               $(this).find('[type="checkbox"]').attr('checked','true');
+      };
+    });
+    
+    $height = $(document).height();
+    $('.set-full-height').css('height',$height);
+
+    function validateFirstStep(){
+      var validity = []
+      var requiredFields1 = $("input.step-1-required-field")
+
+      for (i = 0; i < requiredFields1.length; i++) { 
+        validity.push($(requiredFields1[i]).validationEngine('validate'));
+      };
+
+      return !validity.includes(false);
+    };
+  });
+</script>
+
+
+
