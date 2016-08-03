@@ -1,25 +1,20 @@
 # Rails5-Chat-With-ActionCable
 Sample Application with Multi-User Chat Using Rails 5 and Action Cable
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Application Setup
+===
+* Ruby version: 2.3.1p112  Rails Version: 5.0.0
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
+* System dependencies:
+	- Devise
+	- Devise Invitable
+	- Delayed Job
+	- Paperclip, Delayed Paperclip & Paperclip AV Transcoder
+	- Bootstrap SASS
+	- Paper Dashboard Pro Developers Template From Creative Tim
 
 * Configuration
 
 * Database creation
+	 - PostgreSQL
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
