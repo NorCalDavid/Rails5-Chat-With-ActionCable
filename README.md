@@ -1,4 +1,5 @@
-# README
+# Rails5-Chat-With-ActionCable
+Sample Application with Multi-User Chat Using Rails 5 and Action Cable
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
