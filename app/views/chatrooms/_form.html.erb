@@ -1,22 +1,182 @@
-<%= form_for(chatroom) do |f| %>
-  <% if chatroom.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(chatroom.errors.count, "error") %> prohibited this chatroom from being saved:</h2>
+<div class="row">
+  <div class="col-md-12">
+    <div id="manage-chatroom-form" class="wizard-container"> 
+      <div class="card wizard-card wizard-card-transparent ct-wizard-azzure" id="manage-chatroom-wizard">
 
-      <ul>
-      <% chatroom.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <%= form_for @chatroom, html: { class: 'form-horizontal' } do |f| %>
+          
+          <div class="wizard-header">
+            <h3>
+              <b><%=  action?('new') ? "New" : "Edit" %> </b> Chatroom<br>
+              <small>Manage The Available Chatrooms</small>
+            </h3>
+          </div>
+          
+          <ul>
+            <li><a href="#details" data-toggle="tab">Chatroom</a></li>
+          </ul>
+
+          <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+              <div class="error-messages">
+                <%= form_error_messages!(@chatroom) %>
+              </div>
+            </div>
+          </div> 
+            
+          <div class="tab-content">
+            <div class="tab-pane" id="details">
+              <div class="row">
+                <h4 class="info-text">Chatroom Details</h4>
+                <div class="col-md-offset-1 col-md-10">
+                  <div class="row">
+                    
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <%= f.label :name, class: "control-label" %>
+                            <%= f.text_field :name,
+                              class: "form-control validate[required] step-1-required-field",
+                              data: { "prompt-position" => "topLeft" } %>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-footer">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="pull-right">
+                  <input type='button' class='btn btn-next btn-fill btn-primary btn-wd btn-sm' name='next' value='Next' />
+                  <%= f.submit nil, :class => 'btn btn-finish btn-fill btn-primary btn-wd btn-sm', data: { disable_with: 'Uploading' } %>
+                </div>
+                
+                <div class="pull-left">
+                  <%= link_to "Cancel", :back, class: "btn btn-fill btn-warning btn-wd btn-sm" %>
+                </div>
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </div>  
+        <% end %>
+      </div> <!-- wizard container -->
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<script>
+  
+  $("#manage-chatroom-form").ready(function() {
+    /*  Activate the tooltips      */
+    $('[rel="tooltip"]').tooltip();
+
+    var wizard = $('#manage-chatroom-wizard');
+      
+    wizard.bootstrapWizard({ 'tabClass': 'nav nav-pills',
+                             'nextSelector': '.btn-next',
+                             'previousSelector': '.btn-previous',
+         
+      onInit : function(tab, navigation, index){
+        //check number of tabs and fill the entire row
+        var $total = navigation.find('li').length;
+        $width = 100/$total;
+       
+        $display_width = $(document).width();
+       
+        if($display_width < 600 && $total > 3){ $width = 50; }
+     
+        navigation.find('li').css('width',$width + '%'); 
+      },
+      onNext: function(tab, navigation, index){
+        if(index == 1){
+            return validateFirstStep();
+        } else if(index == 2){
+            return validateSecondStep();
+        } //etc.    
+      },
+      onTabClick : function(tab, navigation, index){
+        // Disable the posibility to click on tabs
+        return true;
+      }, 
+      onTabShow: function(tab, navigation, index) {
+        var $total = navigation.find('li').length;
+        var $current = index+1;
+        
+        var wizard = navigation.closest('.wizard-card');
+        
+        // If it's the last tab then hide the last button and show the finish instead
+        if($current >= $total) { $(wizard).find('.btn-next').hide();
+                                 $(wizard).find('.btn-finish').show();
+        } else { $(wizard).find('.btn-next').show();
+                 $(wizard).find('.btn-finish').hide();
+        };
+      }
+    });
+    
+    $('[data-toggle="image-wizard-radio"]').click(function(){
+      wizard = $(this).closest('.wizard-card');
+      wizard.find('[data-toggle="wizard-radio"]').removeClass('active');
+      $(this).addClass('active');
+      $(wizard).find('[type="radio"]').removeAttr('checked');
+      $(this).find('[type="radio"]').attr('checked','true');
+    });
+    
+    $('[data-toggle="image-wizard-checkbox"]').click(function(){
+      if( $(this).hasClass('active')){ $(this).removeClass('active');
+                                       $(this).find('[type="checkbox"]').removeAttr('checked');
+      } else { $(this).addClass('active');
+               $(this).find('[type="checkbox"]').attr('checked','true');
+      };
+    });
+    
+    $height = $(document).height();
+    $('.set-full-height').css('height',$height);
+
+    function validateFirstStep(){
+      var validity = []
+      var requiredFields1 = $("input.step-1-required-field")
+
+      for (i = 0; i < requiredFields1.length; i++) { 
+        validity.push($(requiredFields1[i]).validationEngine('validate'));
+      };
+
+      return !validity.includes(false);
+    };
+
+    function validateSecondStep(){
+      var validity = []
+      var requiredFields2 = $("input.step-2-required-field")
+
+      for (i = 0; i < requiredFields2.length; i++) { 
+        validity.push($(requiredFields2[i]).validationEngine('validate'));
+      };
+
+      return !validity.includes(false);
+    };
+
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+            
+        reader.onload = function (e) {
+          $('#wizardPicturePreview').attr('src', e.target.result);
+        }  
+        reader.readAsDataURL(input.files[0]);
+      }
+    };
+    
+    $("#wizard-picture").change(function(){
+        readURL(this);
+    });
+  });
+
+</script>
+

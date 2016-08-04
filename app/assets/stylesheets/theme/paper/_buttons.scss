@@ -9,7 +9,7 @@
 
     padding: $padding-base-vertical $padding-base-horizontal;
 
-    @include btn-styles($default-color, $default-states-color);
+    @include btn-styles($default-color);
     @include transition($fast-transition-time, linear);
 
     &:hover,
@@ -47,15 +47,15 @@
 }
 
 // Apply the mixin to the buttons
-//.btn-default { @include btn-styles($default-color, $default-states-color); }
-.navbar .navbar-nav > li > a.btn.btn-primary, .btn-primary { @include btn-styles($primary-color, $primary-states-color); }
-.navbar .navbar-nav > li > a.btn.btn-success, .btn-success { @include btn-styles($success-color, $success-states-color); }
-.navbar .navbar-nav > li > a.btn.btn-info, .btn-info    { @include btn-styles($info-color, $info-states-color); }
-.navbar .navbar-nav > li > a.btn.btn-warning, .btn-warning { @include btn-styles($warning-color, $warning-states-color); }
-.navbar .navbar-nav > li > a.btn.btn-danger, .btn-danger  { @include btn-styles($danger-color, $danger-states-color); }
+//.btn-default { @include btn-styles($default-color); }
+.navbar .navbar-nav > li > a.btn.btn-primary, .btn-primary { @include btn-styles($primary-color); }
+.navbar .navbar-nav > li > a.btn.btn-success, .btn-success { @include btn-styles($success-color); }
+.navbar .navbar-nav > li > a.btn.btn-info, .btn-info    { @include btn-styles($info-color); }
+.navbar .navbar-nav > li > a.btn.btn-warning, .btn-warning { @include btn-styles($warning-color); }
+.navbar .navbar-nav > li > a.btn.btn-danger, .btn-danger  { @include btn-styles($danger-color); }
 
 .btn-neutral {
-    @include btn-styles($white-color, $white-color);
+    @include btn-styles($white-color);
 
     &:hover,
     &:focus{

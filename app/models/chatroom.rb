@@ -1,5 +1,10 @@
 class Chatroom < ApplicationRecord
 	has_many :chatroom_users
-	has_many :user, through: :chatroom_users
+	has_many :users, through: :chatroom_users
 	has_many :messages
+
+	def has_member?(user)
+		return self.chatroom_users.where(user_id: user.id).count > 0
+	end
+
 end

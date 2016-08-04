@@ -13,9 +13,14 @@ Rails.application.routes.draw do
     
   get '/profile' => 'users#profile', as: :profile
 
-  resources :chatrooms
+  resources :chatrooms do 
+    resources :messages
+    resource :chatroom_users 
 
-  root to: 'chatrooms#index'
+    get 'destroy' => 'chatrooms#destroy', as: "destroy", on: :member
+  end
+  
+  root to: 'homepage#index'
 
 end
 

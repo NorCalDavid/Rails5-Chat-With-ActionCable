@@ -1,9 +1,89 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+	
+	<div class="col-md-6 col-md-offset-1">
+		<div class="card card-nav-tabs card-chat">
+			<div class="header header-primary">
+				<h2 class="title text-center no-margin-bottom">Chat</h2>
+				<h4 class="text-center no-margin-top"><%= @chatroom.name %></h4>
+			</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @chatroom.name %>
-</p>
+			<div class="content">
+				<ol class="chat">
+					<% @chatroom.messages.each do |message| %>
+						<li class="<%= message.user == current_user ? 'self' : 'other' %>">
+							<div class="avatar">
+								<%= image_tag message.user.thumb, alt: "crash" %>
+							</div>
+					    
+					    <div class="msg">
+						    <p><%= message.body %></p>
+									<i class="ti-alarm-clock"></i>
+								<h6><%= time_ago_in_words(message.created_at) %> ago</h6>
+						  </div>
+					  </li>
+					<% end %>					
+				</ol>
+				
+				<hr>
+				
+				<div class="send-message">
+					<div class="col-sm-1">
+						<div class="avatar">
+							<%= image_tag current_user.thumb, alt: "crash" %>
+						</div>
+					</div> 
 
-<%= link_to 'Edit', edit_chatroom_path(@chatroom) %> |
-<%= link_to 'Back', chatrooms_path %>
+					<%= form_for [@chatroom, Message.new] do |f| %>
+						<div class="col-sm-8">
+	            <%= f.hidden_field :user_id, value: current_user.id %>
+	            <%= f.hidden_field :chatroom_id, value: @chatroom.id %>
+	              
+	            <%= f.text_area :body, placeholder: "Enter Message Here", class: "form-control textarea" %>
+	          </div> 
+
+	          <div class="col-sm-2">
+	            <div class="send-button">
+	            	<%= f.submit "Send", class: "btn btn-primary btn-fill btn-small" %>
+	            </div> 
+	          </div>	                      
+	        <% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="card card-nav-tabs">
+		  <div class="header header-info">
+		    <h2 class="title text-center">Team Members</h2>
+		  </div>
+		  
+		  <div class="content">
+		    <ul class="list-unstyled team-members">
+		    	<% @chatroom.users.each do |user| %>
+			      <li>
+		          <div class="row">
+		            <div class="col-xs-3">
+		              <div class="avatar">
+		              	<%= image_tag current_user.thumb, class: "img-circle img-no-padding img-responsive" %>
+		              </div>
+		            </div>
+
+		            <div class="col-xs-6">
+		              <%= user.username %>
+		              <br />
+		              <span class="text-info"><small><strong>Member Since:</strong> <%= user.created_at.strftime("%b %Y") %></small></span>
+		              <span class="text-info"><small><strong>Last Seen:</strong> <%= time_ago_in_words(user.last_sign_in_at) %> ago</small></span>
+		            </div>
+
+		            <div class="col-xs-3 text-right">
+		              <!-- <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn> -->
+		            </div>
+		          </div>
+			      </li>
+		      <% end %>
+				</ul>
+		  </div>
+		</div>
+	</div>
+</div>

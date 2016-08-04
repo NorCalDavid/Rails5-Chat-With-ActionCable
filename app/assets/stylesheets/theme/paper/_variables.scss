@@ -62,6 +62,17 @@ $warning-states-color:       darken($warning-color,11%) !default;
 
 $brand-azzure: $azzure !default;
 
+$white-transparent: rgba($white-color, .8);
+
+$gray-color:  #999999 !default;
+
+$brand-primary: $blue !default;
+$brand-azzure: $azzure !default;
+$brand-success: $green !default;
+$brand-danger: $red !default;
+$brand-warning: $orange !default;
+$brand-info: $cyan !default;
+$brand-rose: $pink !default;
 
 $danger-color:               #EB5E28 !default;
 $danger-bg:                  #EB5E28 !default;
@@ -119,6 +130,10 @@ $icon-color: rgba(0,0,0,0.5) !default;
 
 $mdb-label-color: unquote("rgba(#{$rgb-black}, 0.26)") !default;
 $mdb-label-color-toggle-focus: unquote("rgba(#{$rgb-black}, .54)") !default;
+
+
+
+
 
 
 //== Components
@@ -386,8 +401,21 @@ $black-footer-bg:            #252422 !default;
 $brown-font-color:    #A49E9E !default;
 $brown-font-color-hover: #F1EAE0 !default;
 
+
+
+// import bs variables for sass, first declared wins.
+@import 'variables_bootstrap';
+
 /* SHADOWS */
 $mdb-shadow-key-umbra-opacity: 0.2 !default;
 $mdb-shadow-key-penumbra-opacity: 0.14 !default;
 $mdb-shadow-ambient-shadow-opacity: 0.12 !default;
 
+
+// Card
+$mdb-card-body-text: $mdb-text-color-primary !default;
+$mdb-card-body-background: #fff !default;
+$mdb-card-image-headline: #fff !default;
+
+$text-disabled: #a8a8a8 !default;
+$background-disabled: #eaeaea !default;

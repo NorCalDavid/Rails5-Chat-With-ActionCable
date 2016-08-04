@@ -1,5 +1,6 @@
 class ChatroomsController < ApplicationController
   before_action :set_chatroom, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /chatrooms
   def index
@@ -24,7 +25,7 @@ class ChatroomsController < ApplicationController
     @chatroom = Chatroom.new(chatroom_params)
 
     if @chatroom.save
-      redirect_to @chatroom, notice: 'Chatroom was successfully created.'
+      redirect_to chatrooms_url, notice: 'Chatroom was successfully created.'
     else
       render :new
     end
@@ -33,16 +34,19 @@ class ChatroomsController < ApplicationController
   # PATCH/PUT /chatrooms/1
   def update
     if @chatroom.update(chatroom_params)
-      redirect_to @chatroom, notice: 'Chatroom was successfully updated.'
+      redirect_to chatrooms_url, notice: 'Chatroom was successfully updated.'
     else
       render :edit
     end
   end
 
-  # DELETE /chatrooms/1
   def destroy
     @chatroom.destroy
-    redirect_to chatrooms_url, notice: 'Chatroom was successfully destroyed.'
+
+    respond_to do |format|
+      format.html { redirect_to chatrooms_url, notice: 'Chatroom was successfully destroyed.' }
+      format.json { render json: { url: chatrooms_url }, status: 202 }
+    end
   end
 
   private

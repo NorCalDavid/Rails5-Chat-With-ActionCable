@@ -20,14 +20,12 @@ Tip 2: you can change the color of the active button using the data-active-color
 			<div class="photo">
 				<% if user_signed_in? %>
 					<%= image_tag(current_user.thumb) %>
-				<% else %>
-					<img src="https://s3-us-west-1.amazonaws.com/daviduli-template/assets/default-artwork/user-avatar.jpg" />
 				<% end %>
 			</div>
 			
 			<div class="info">
 				<a data-toggle="collapse" href="#collapseExample" class="collapsed">
-					Sample User
+					<%= user_signed_in? ? current_user.username : "Login / Register" %>
 					<b class="caret"></b>
 				</a>
 				
@@ -47,21 +45,32 @@ Tip 2: you can change the color of the active button using the data-active-color
 		</div>
 		
 		<ul class="nav">
-			<li>
-				<a data-toggle="collapse" href="#dashboardOverview">
-					<i class="ti-panel"></i>
-					<p>Collapse
-						<b class="caret"></b>
-					</p>
-				</a>
-				
-				<div class="collapse" id="dashboardOverview">
-					<ul class="nav">
-						<li><a href="#panda">Collapse 1</a></li>
-						<li><a href="#panda">Collapse2</a></li>
-					</ul>
-				</div>
-			</li>
+			<% if user_signed_in? %>
+				<li>
+					<a data-toggle="collapse" href="#chatroomsDropdown">
+						<i class="ti-comments"></i>
+						<p>My Chatrooms
+							<b class="caret"></b>
+						</p>
+					</a>
+					
+					<div class="collapse" id="chatroomsDropdown">
+						<ul class="nav">
+							<% if current_user.chatrooms.count == 0 %>
+								<li class="text-center text-warning dropdown-header"><h5>You Have Not Joined<br/>Any Chatrooms</h5></li>
+								
+								<li><%= link_to "View All Chatrooms", main_app.chatrooms_path %>
+										
+								</li>
+							<% else %>
+								<% current_user.chatrooms.each do |chatroom| %>
+									<li><%= link_to "#{chatroom.name}", main_app.chatroom_path(chatroom) %></li>
+								<% end %>
+							<% end %>
+						</ul>
+					</div>
+				</li>
+			<% end %>
 
 			<li>
 				<a href="calendar.html">

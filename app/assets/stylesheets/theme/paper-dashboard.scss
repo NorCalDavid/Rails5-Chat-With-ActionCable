@@ -33,6 +33,7 @@
  * ========================================================= */
 
 @import "paper/variables";
+@import "paper/variables-material";
 @import "paper/mixins";
 
 //plugins css
@@ -57,6 +58,7 @@
 @import "paper/typography";
 @import "paper/sidebar-and-main-panel";
 @import "paper/buttons";
+@import "paper/buttons2";
 @import "paper/misc";
 @import "paper/inputs";
 @import "paper/progress-bars";
@@ -68,6 +70,7 @@
 @import "paper/navbars";
 @import "paper/footers";
 @import "paper/cards";
+@import "paper/cards2";
 @import "paper/timeline";
 @import "paper/labels";
 @import "paper/chat-message";
@@ -85,7 +88,8 @@
 //SCSS for Pages
 @import "paper/pages";
 
-@import "paper/tabs-navs-pagination";
+// @import "paper/tabs-navs-pagination";
+@import "paper/tabs";
 @import "paper/circlechart";
 
 @import "paper/responsive";
