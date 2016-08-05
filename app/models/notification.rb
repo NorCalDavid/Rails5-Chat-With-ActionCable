@@ -13,6 +13,9 @@ class Notification < ApplicationRecord
   											 :notifications_active => 14, :notifications => 15, 
   											 :notifications_none => 16, :notifications_off => 17  }, predicates: { prefix: true }
   
+  # after_commit ->{ NotificationRelayJob.perform_later(self) }
+  after_create :stream_notification
+
   belongs_to :recipient, class_name: "User"
   belongs_to :actor, class_name: "User"
   belongs_to :notifiable, polymorphic: true
@@ -20,6 +23,19 @@ class Notification < ApplicationRecord
   scope :unread, ->{ where(read_at: nil) }
   scope :read, ->{ where.not(read_at: nil) }
   scope :recent, ->{ order(created_at: :desc).limit(5) }
+
+  def stream_notification
+    ap "Attempting to Stream"
+    if self.notifiable.nil?
+      html = ApplicationController.render partial: "notifications/notification", locals: {notification: self}, formats: [:html]
+      count = self.recipient.notifications.unread.count
+      ActionCable.server.broadcast "notifications:#{self.recipient_id}", html: html, count: count
+    else
+      html = ApplicationController.render partial: "notifications/#{self.notifiable_type.underscore.pluralize}/#{self.action}", locals: {notification: self}, formats: [:html]
+      count = self.recipient.notifications.unread.count
+      ActionCable.server.broadcast "notifications:#{self.recipient_id}", html: html, count: count
+    end
+  end
 
   def unread?
     return self.read_at.nil?

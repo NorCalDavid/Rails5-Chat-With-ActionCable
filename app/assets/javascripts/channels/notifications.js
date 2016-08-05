@@ -13,6 +13,9 @@ App.notifications = App.cable.subscriptions.create("NotificationsChannel", {
   received: function(data) {
   	console.log(data);
   	$("#notifications").prepend(data.html);
+  	$("#notification-icon").html('notifications_active');
+  	$("#notification-count").html(data.count);
+  	$("#notification-count").show();
   }
 
 });

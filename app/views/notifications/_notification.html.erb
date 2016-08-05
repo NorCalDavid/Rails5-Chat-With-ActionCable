@@ -1,0 +1,23 @@
+<li>
+	<%= link_to notification_path(notification) do %>
+		<div class="notification-box <%= notification.color_class %>">
+			<div class="row margin-bottom-5">
+				<div class="col-xs-2 text-center">
+					<div class="notification-icon pull-center">
+						<i class="md-48 material-icons"><%= notification.icon %></i>
+					</div> 
+				</div> 
+
+				<div class="col-xs-9 col-xs-offset-1">
+					<div class="notification-actor"><%= notification.actor.name %></div> 
+				</div> 
+			</div>
+
+			<div class="row no-margin-top padding-bottom-10">
+				<div class="col-xs-12 notification-action">
+					<%= notification.action %> <%= "#{ time_ago_in_words(notification.created_at) } ago" %>
+			  </div>
+			</div>
+		</div>
+	<% end %>
+</li>

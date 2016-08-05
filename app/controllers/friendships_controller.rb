@@ -2,10 +2,10 @@ class FriendshipsController < ApplicationController
 
 	def create
 	  @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
-	  ap params
-	  ap @friendship
 
 	  if @friendship.save
+	  	@friendship.friend.notifications.create( actor: current_user, notifiable: @friendship.friend, action: "friended")
+
 	  	respond_to do |format|
 	      format.html { redirect_to profile_url(current_user), notice: 'Friendship was successfully created.' }
 	      format.json { render json: { url: profile_url }, status: 202 }

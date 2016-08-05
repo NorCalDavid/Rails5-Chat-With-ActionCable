@@ -28,8 +28,11 @@
 				<% if user_signed_in? %>
 					<li class="dropdown">
 	          <a href="#" class="dropdown-toggle <%= current_user.notifications_status[0] %>" data-toggle="dropdown">
-	            <i class="material-icons"><%= current_user.notifications_status[1] %></i>
-	            <%= current_user.notifications.unread.count %> Notification<%= 's' unless current_user.notifications.unread.count == 1 %>
+	            <i id="notification-icon" class="material-icons"><%= current_user.notifications_status[1] %></i>
+	            Notification<%= 's' unless current_user.notifications.unread.count == 1 %>
+	            <span id="notification-count" class="label label-danger">
+	            	<%= current_user.notifications.unread.count %>
+	            </span>
 	          </a>        
 	          
 	          <ul id="notifications" class="dropdown-menu text-center chat">
@@ -106,3 +109,9 @@
 		</div>
 	</div>
 </nav>
+
+<script>
+ var notificationCount = $('#notification-count').val();
+ console.log(notificationCount);
+ if(notificationCount == 0) { $('#notification-count').hide() }
+</script>
