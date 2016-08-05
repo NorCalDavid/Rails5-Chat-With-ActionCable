@@ -11,7 +11,8 @@ class Notification < ApplicationRecord
   											 :check_circle => 8, :done => 9, :done_all => 10,
   											 :mail => 11, :live_help => 12, :assignment_late => 13,
   											 :notifications_active => 14, :notifications => 15, 
-  											 :notifications_none => 16, :notifications_off => 17  }, predicates: { prefix: true }
+  											 :notifications_none => 16, :notifications_off => 17,
+                         :sentiment_very_satisfied => 18, :sentiment_satisfied => 19, :sentiment_dissatisfied => 20  }, predicates: { prefix: true }
   
   # after_commit ->{ NotificationRelayJob.perform_later(self) }
   after_create :stream_notification
@@ -58,23 +59,26 @@ class Notification < ApplicationRecord
   end
 
   def self.icon_options
-    return {  "warning" =>                { name: "Warning",                html: "<i class='material-icons'>warning</i>" },
-              "alarm" =>                  { name: "Alarm",                  html: "<i class='material-icons'>alarm</i>" },
-              "help_outline" =>           { name: "Help Circle",            html: "<i class='material-icons'>help_outline</i>" },
-              "info_outline" =>           { name: "Info Circle",            html: "<i class='material-icons'>info_outline</i>" },
-              "info" =>                   { name: "Info",                   html: "<i class='material-icons'>info</i>" },
-              "stars" =>                  { name: "Stars",                  html: "<i class='material-icons'>stars</i>" },
-              "flag" =>                   { name: "Flag",                   html: "<i class='material-icons'>flag</i>" },
-              "check_circle" =>           { name: "Check Circle",           html: "<i class='material-icons'>check_circle</i>" },
-              "done" =>                   { name: "Done",                   html: "<i class='material-icons'>done</i>" },
-              "done_all" =>               { name: "Done All",               html: "<i class='material-icons'>done_all</i>" },
-              "mail" =>                   { name: "Mail",                   html: "<i class='material-icons'>mail</i>" },
-              "live_help" =>              { name: "Live Help",              html: "<i class='material-icons'>live_help</i>" },
-              "assignment_late" =>        { name: "Latr",                   html: "<i class='material-icons'>assignment_late</i>" },
-              "notifications_active" =>   { name: "Notification Active",    html: "<i class='material-icons'>notifications_active</i>" },
-              "notifications" =>          { name: "Notification",           html: "<i class='material-icons'>notifications</i>" },
-              "notifications_none" =>     { name: "Notification None",      html: "<i class='material-icons'>notifications_none</i>" },
-              "notifications_off" =>      { name: "Notification Off",       html: "<i class='material-icons'>notifications_off</i>" } }
+    return {  "warning" =>                  { name: "Warning",                html: "<i class='material-icons'>warning</i>" },
+              "alarm" =>                    { name: "Alarm",                  html: "<i class='material-icons'>alarm</i>" },
+              "help_outline" =>             { name: "Help Circle",            html: "<i class='material-icons'>help_outline</i>" },
+              "info_outline" =>             { name: "Info Circle",            html: "<i class='material-icons'>info_outline</i>" },
+              "info" =>                     { name: "Info",                   html: "<i class='material-icons'>info</i>" },
+              "stars" =>                    { name: "Stars",                  html: "<i class='material-icons'>stars</i>" },
+              "flag" =>                     { name: "Flag",                   html: "<i class='material-icons'>flag</i>" },
+              "check_circle" =>             { name: "Check Circle",           html: "<i class='material-icons'>check_circle</i>" },
+              "done" =>                     { name: "Done",                   html: "<i class='material-icons'>done</i>" },
+              "done_all" =>                 { name: "Done All",               html: "<i class='material-icons'>done_all</i>" },
+              "mail" =>                     { name: "Mail",                   html: "<i class='material-icons'>mail</i>" },
+              "live_help" =>                { name: "Live Help",              html: "<i class='material-icons'>live_help</i>" },
+              "assignment_late" =>          { name: "Latr",                   html: "<i class='material-icons'>assignment_late</i>" },
+              "notifications_active" =>     { name: "Notification Active",    html: "<i class='material-icons'>notifications_active</i>" },
+              "notifications" =>            { name: "Notification",           html: "<i class='material-icons'>notifications</i>" },
+              "notifications_none" =>       { name: "Notification None",      html: "<i class='material-icons'>notifications_none</i>" },
+              "notifications_off" =>        { name: "Notification Off",       html: "<i class='material-icons'>notifications_off</i>" } },
+              "sentiment_very_satisfied" => { name: "Very Satisfied",         html: "<i class='material-icons'>sentiment_very_satisfied</i>" } },
+              "sentiment_satisfied" =>      { name: "Satisfied",              html: "<i class='material-icons'>sentiment_satisfied</i>" } },
+              "sentiment_dissatisfied" =>   { name: "Dissatisfied",           html: "<i class='material-icons'>sentiment_dissatisfied</i>" } }
   end 
 
   def self.color_options
