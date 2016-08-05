@@ -9,6 +9,10 @@
        line-height: 1;
     }
 }
+.label-block {
+  display: block;
+  width: 100%;
+}
 .label-default{
     background-color: $font-color;
 }
@@ -26,4 +30,63 @@
 }
 .label-danger{
     background-color: $danger-color;
+}
+.label-blue {
+  background-color: #2196f3 !important;
+  color: #fff !important;
+}
+
+.label-teal {
+  background-color: #009688 !important;
+  color: #fff !important;
+}
+
+.label-cyan {
+  background-color: #00bcd4 !important;
+  color: #fff !important;
+}
+
+.label-green {
+  background-color: #4caf50 !important;
+  color: #fff !important;
+}
+
+.label-amber {
+  background-color: #ffc107 !important;
+  color: #fff !important;
+} 
+
+.label-orange {
+  background-color: #ff9800 !important;
+  color: #fff !important;
+}
+
+.label-pink {
+  background-color: #e91e63 !important;
+  color: #fff !important;
+}
+
+.label-red {
+  background-color: #f44336 !important;
+  color: #fff !important;
+}
+
+.label-purple {
+  background-color: #9c27b0 !important;
+  color: #fff !important;
+}
+
+.label-brown {
+  background-color: #795548 !important;
+  color: #fff !important;
+}
+
+.label-grey {
+  background-color: #9e9e9e !important;
+  color: #fff !important;
+}
+
+.label-black {
+  background-color: #000000 !important;
+  color: #fff !important;
 }

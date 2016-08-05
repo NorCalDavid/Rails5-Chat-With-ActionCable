@@ -18,7 +18,16 @@ class Notification < ApplicationRecord
   belongs_to :notifiable, polymorphic: true
 
   scope :unread, ->{ where(read_at: nil) }
+  scope :read, ->{ where.not(read_at: nil) }
   scope :recent, ->{ order(created_at: :desc).limit(5) }
+
+  def unread?
+    return self.read_at.nil?
+  end
+
+  def read?
+    return !self.read_at.nil?
+  end
 
   def color_name
   	return Notification.color_options[self.color][:name]
@@ -31,6 +40,26 @@ class Notification < ApplicationRecord
   def color_code
   	return Notification.color_options[self.color][:code]
   end
+
+  def self.icon_options
+    return {  "warning" =>                { name: "Warning",                html: "<i class='material-icons'>warning</i>" },
+              "alarm" =>                  { name: "Alarm",                  html: "<i class='material-icons'>alarm</i>" },
+              "help_outline" =>           { name: "Help Circle",            html: "<i class='material-icons'>help_outline</i>" },
+              "info_outline" =>           { name: "Info Circle",            html: "<i class='material-icons'>info_outline</i>" },
+              "info" =>                   { name: "Info",                   html: "<i class='material-icons'>info</i>" },
+              "stars" =>                  { name: "Stars",                  html: "<i class='material-icons'>stars</i>" },
+              "flag" =>                   { name: "Flag",                   html: "<i class='material-icons'>flag</i>" },
+              "check_circle" =>           { name: "Check Circle",           html: "<i class='material-icons'>check_circle</i>" },
+              "done" =>                   { name: "Done",                   html: "<i class='material-icons'>done</i>" },
+              "done_all" =>               { name: "Done All",               html: "<i class='material-icons'>done_all</i>" },
+              "mail" =>                   { name: "Mail",                   html: "<i class='material-icons'>mail</i>" },
+              "live_help" =>              { name: "Live Help",              html: "<i class='material-icons'>live_help</i>" },
+              "assignment_late" =>        { name: "Latr",                   html: "<i class='material-icons'>assignment_late</i>" },
+              "notifications_active" =>   { name: "Notification Active",    html: "<i class='material-icons'>notifications_active</i>" },
+              "notifications" =>          { name: "Notification",           html: "<i class='material-icons'>notifications</i>" },
+              "notifications_none" =>     { name: "Notification None",      html: "<i class='material-icons'>notifications_none</i>" },
+              "notifications_off" =>      { name: "Notification Off",       html: "<i class='material-icons'>notifications_off</i>" } }
+  end 
 
   def self.color_options
   	return {  "blue" =>  	{ name: "Blue", 	class: "notification-blue", 		code: "#2196f3" },

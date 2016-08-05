@@ -9,8 +9,8 @@
               <div class="nav-tabs-wrapper">
                 <ul class="nav nav-tabs" data-tabs="tabs">
                   <% if current_user.admin? %>
-                    <li class="active">
-                      <%= link_to new_notification_path, class: 'btn btn-fill btn-primary btn-wd btn-xs' do %>
+                    <li>
+                      <%= link_to new_notification_path, class: 'btn btn-simple btn-icon btn-xs' do %>
                         <i class="material-icons">add</i>
                         Send Notification
                       <%  end %>
@@ -28,23 +28,34 @@
                   <div class="card card-raised">
                     <div class="content <%= notification.color_class %>">
                       <div class="row">
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                           <h1 class="card-title">
                             <i class="material-icons"><%= notification.icon %></i> <%= notification.actor.name %>
                           </h1>
                         </div> 
                         
-                        <div class="col-sm-2">
-                          <%= link_to notification, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-round btn-raised" do %>
-                            <i class="material-icons">delete_forever</i> Delete
-                          <% end %>
-                        </div> 
+                        <div class="col-sm-5 text-right">
+                          <div class="btn-group">
+                            <% if notification.read_at.nil? %>
+                              <%= link_to read_notification_path(notification), method: :post, class: "btn btn-white btn-icon btn-raised btn-sm" do %>
+                                <span class="text-success text-bold"><i class="material-icons">check_circle</i> Mark Read</span>
+                              <% end %>
+                            <% end %>
+
+                            <%= link_to notification, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-white btn-icon btn-raised btn-sm" do %>
+                              <span class="text-danger text-bold"><i class="material-icons">delete_forever</i> Delete</span>
+                            <% end %>
+                          </div>
+                        </div>
                       </div>
 
                       <div class="row">
                         <div class="col-sm-12">
                           <h4 class="card-title no-margin-top">
                             <%= notification.action %> on <%= "#{ time_ago_in_words(notification.created_at) } ago" %>
+                            <% unless notification.read_at.nil? %>
+                              <span class="pull-right text-muted text-bold"><i class="md-18 material-icons">check_circle</i> Read <%= time_ago_in_words(notification.read_at).titleize %> Ago</span>
+                            <% end %>
                           </h4>
                         </div> 
                       </div>

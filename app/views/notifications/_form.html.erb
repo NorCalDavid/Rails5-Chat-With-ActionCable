@@ -1,52 +1,233 @@
-<%= form_for(notification) do |f| %>
-  <% if notification.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(notification.errors.count, "error") %> prohibited this notification from being saved:</h2>
+<div class="row">
+  <div class="col-md-12">
+    <div id="manage-notification-form" class="wizard-container"> 
+      <div class="card wizard-card wizard-card-transparent ct-wizard-azzure" id="manage-notification-wizard">
 
-      <ul>
-      <% notification.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <%= form_for @notification, html: { class: 'form-horizontal' } do |f| %>
+        <%= f.hidden_field :actor_d, value: current_user.id %>
+          
+          <div class="wizard-header">
+            <h3>
+              <b><%=  action?('new') ? "New" : "Edit" %> </b> Notification<br>
+              <small>Manage The System Notifications</small>
+            </h3>
+          </div>
+          
+          <ul>
+            <li><a href="#details" data-toggle="tab">Notification</a></li>
+            <li><a href="#icons" data-toggle="tab">Icons</a></li>
+          </ul>
+
+          <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+              <div class="error-messages">
+                <%= form_error_messages!(@notification) %>
+              </div>
+            </div>
+          </div> 
+            
+          <div class="tab-content">
+            <div class="tab-pane" id="details">
+              <div class="row">
+                <h4 class="info-text">Notification Details</h4>
+                <div class="col-md-offset-1 col-md-10">
+                  <div class="row">
+                    
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <%= f.label :recipient, class: "control-label" %>
+                            <%= f.collection_select :recipient_id, User.order(:name), :id, :name, 
+                                                    { :prompt => 'Select Recipient' }, 
+                                                    { class: "form-control box-left" } %>
+                          </div>
+                        </div>
+
+                        <div class="col-md-7 col-md-offset-1">
+                          <div class="form-group">
+                            <%= f.label :action, class: "control-label" %>
+                            <%= f.text_field :action, class: "form-control" %>
+                          </div>
+                        </div>
+                      </div> 
+
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="legend-block">
+                            <h3 class="title text-center no-margin-top no-padding-all">Color Options</h3>
+                            <% Notification.color_options.each do |key, value| %>
+                              <div class="col-md-2">
+                                <label class="radio">
+                                  <%= f.radio_button :color, key, data: { toggle: "radio" } %>
+                                  <span class="label label-<%= key %> pull-left"><%= value[:name] %></span>
+                                </label>
+                              </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane" id="icons">
+              <div class="row">
+                <h4 class="info-text">Icon Options</h4>
+                <div class="col-md-offset-1 col-md-10">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="right-text-tabs">
+                        <div class="tab-content">
+                          <% Notification.icon_options.each do |key, value| %>
+                            <div class="col-md-3">
+                              <label class="radio">
+                                <%= f.radio_button :icon, key, data: { toggle: "radio" } %>
+                                <i class="pull-left md-48 material-icons" rel="tooltip" title='<%= value[:name] %>'><%= key %></i>
+                              </label>
+                            </div>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-footer">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="pull-right">
+                  <input type='button' class='btn btn-next btn-fill btn-primary btn-wd btn-sm' name='next' value='Next' />
+                  <%= f.submit nil, :class => 'btn btn-finish btn-fill btn-primary btn-wd btn-sm', data: { disable_with: 'Uploading' } %>
+                </div>
+                
+                <div class="pull-left">
+                  <%= link_to "Cancel", :back, class: "btn btn-fill btn-warning btn-wd btn-sm" %>
+                </div>
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </div>  
+        <% end %>
+      </div> <!-- wizard container -->
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :recipient_id %>
-    <%= f.number_field :recipient_id %>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :user_id %>
-    <%= f.text_field :user_id %>
-  </div>
+<script>
+  
+  $("#manage-notification-form").ready(function() {
+    /*  Activate the tooltips      */
+    $('[rel="tooltip"]').tooltip();
 
-  <div class="field">
-    <%= f.label :action %>
-    <%= f.text_field :action %>
-  </div>
+    var wizard = $('#manage-notification-wizard');
+      
+    wizard.bootstrapWizard({ 'tabClass': 'nav nav-pills',
+                             'nextSelector': '.btn-next',
+                             'previousSelector': '.btn-previous',
+         
+      onInit : function(tab, navigation, index){
+        //check number of tabs and fill the entire row
+        var $total = navigation.find('li').length;
+        $width = 100/$total;
+       
+        $display_width = $(document).width();
+       
+        if($display_width < 600 && $total > 3){ $width = 50; }
+     
+        navigation.find('li').css('width',$width + '%'); 
+      },
+      onNext: function(tab, navigation, index){
+        if(index == 1){
+            return validateFirstStep();
+        } else if(index == 2){
+            return validateSecondStep();
+        } //etc.    
+      },
+      onTabClick : function(tab, navigation, index){
+        // Disable the posibility to click on tabs
+        return true;
+      }, 
+      onTabShow: function(tab, navigation, index) {
+        var $total = navigation.find('li').length;
+        var $current = index+1;
+        
+        var wizard = navigation.closest('.wizard-card');
+        
+        // If it's the last tab then hide the last button and show the finish instead
+        if($current >= $total) { $(wizard).find('.btn-next').hide();
+                                 $(wizard).find('.btn-finish').show();
+        } else { $(wizard).find('.btn-next').show();
+                 $(wizard).find('.btn-finish').hide();
+        };
+      }
+    });
+    
+    $('[data-toggle="image-wizard-radio"]').click(function(){
+      wizard = $(this).closest('.wizard-card');
+      wizard.find('[data-toggle="wizard-radio"]').removeClass('active');
+      $(this).addClass('active');
+      $(wizard).find('[type="radio"]').removeAttr('checked');
+      $(this).find('[type="radio"]').attr('checked','true');
+    });
+    
+    $('[data-toggle="image-wizard-checkbox"]').click(function(){
+      if( $(this).hasClass('active')){ $(this).removeClass('active');
+                                       $(this).find('[type="checkbox"]').removeAttr('checked');
+      } else { $(this).addClass('active');
+               $(this).find('[type="checkbox"]').attr('checked','true');
+      };
+    });
+    
+    $height = $(document).height();
+    $('.set-full-height').css('height',$height);
 
-  <div class="field">
-    <%= f.label :notifiable_type %>
-    <%= f.text_field :notifiable_type %>
-  </div>
+    function validateFirstStep(){
+      var validity = []
+      var requiredFields1 = $("input.step-1-required-field")
 
-  <div class="field">
-    <%= f.label :notifiable_id %>
-    <%= f.number_field :notifiable_id %>
-  </div>
+      for (i = 0; i < requiredFields1.length; i++) { 
+        validity.push($(requiredFields1[i]).validationEngine('validate'));
+      };
 
-  <div class="field">
-    <%= f.label :color %>
-    <%= f.number_field :color %>
-  </div>
+      return !validity.includes(false);
+    };
 
-  <div class="field">
-    <%= f.label :icon %>
-    <%= f.number_field :icon %>
-  </div>
+    function validateSecondStep(){
+      var validity = []
+      var requiredFields2 = $("input.step-2-required-field")
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+      for (i = 0; i < requiredFields2.length; i++) { 
+        validity.push($(requiredFields2[i]).validationEngine('validate'));
+      };
+
+      return !validity.includes(false);
+    };
+
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+            
+        reader.onload = function (e) {
+          $('#wizardPicturePreview').attr('src', e.target.result);
+        }  
+        reader.readAsDataURL(input.files[0]);
+      }
+    };
+    
+    $("#wizard-picture").change(function(){
+        readURL(this);
+    });
+  });
+
+</script>
+
+

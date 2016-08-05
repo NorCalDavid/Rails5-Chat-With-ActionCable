@@ -1,0 +1,8 @@
+<li>
+	<%= link_to notification_path(notification), class: "label label-#{notification.color} label-block" do %>
+		<small>
+			<%= notification.actor.username %> <%= notification.action %> - <%= time_ago_in_words(notification.created_at) %> ago<br/>
+			Read <%= time_ago_in_words(notification.read_at) unless notification.read_at.nil? %> ago
+		</small>
+	<% end %>
+</li>

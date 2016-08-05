@@ -128,6 +128,9 @@
 	.label-success.label-fill, .progress-bar-success{
 	   background-color: #05AE0E;
 	}
+	.label-brown.label-fill, .progress-bar-brown{
+	   background-color: $dark-grey;
+	}
 	.label-warning.label-fill, .progress-bar-warning{
 	   background-color: #FF9500;
 	}
@@ -167,8 +170,11 @@
 	.nav-pills.ct-dark-blue > li.active > a, .nav-pills.ct-dark-blue > li.active > a:hover, .nav-pills.ct-dark-blue > li.active > a:focus, .pagination.ct-dark-blue > .active > a, .pagination.ct-dark-blue > .active > span, .pagination.ct-dark-blue > .active > a:hover, .pagination.ct-dark-blue > .active > span:hover, .pagination.ct-dark-blue > .active > a:focus, .pagination.ct-dark-blue > .active > span:focus{
 	   background-color: #4765a0;
 	}
-	.nav-pills.ct-azure > li.active > a, .nav-pills.ct-azure > li.active > a:hover, .nav-pills.ct-azure > li.active > a:focus, .pagination.ct-azure > .active > a, .pagination.ct-azure > .active > span, .pagination.ct-azure > .active > a:hover, .pagination.ct-azure > .active > span:hover, .pagination.ct-azure > .active > a:focus, .pagination.ct-azure > .active > span:focus{
+	.nav-pills.ct-azzure > li.active > a, .nav-pills.ct-azzure > li.active > a:hover, .nav-pills.ct-azzure > li.active > a:focus, .pagination.ct-azzure > .active > a, .pagination.ct-azzure > .active > span, .pagination.ct-azzure > .active > a:hover, .pagination.ct-azzure > .active > span:hover, .pagination.ct-azzure > .active > a:focus, .pagination.ct-azzure > .active > span:focus{
 	    background-color: #2CA8FF;
+	}
+	.nav-pills.ct-brown > li.active > a, .nav-pills.ct-brown > li.active > a:hover, .nav-pills.ct-brown > li.active > a:focus, .pagination.ct-brown > .active > a, .pagination.ct-brown > .active > span, .pagination.ct-brown > .active > a:hover, .pagination.ct-brown > .active > span:hover, .pagination.ct-brown > .active > a:focus, .pagination.ct-brown > .active > span:focus{
+	    background-color: $dark-grey;
 	}
 	.nav-pills.ct-green > li.active > a, .nav-pills.ct-green > li.active > a:hover, .nav-pills.ct-green > li.active > a:focus, .pagination.ct-green > .active > a, .pagination.ct-green > .active > span, .pagination.ct-green > .active > a:hover, .pagination.ct-green > .active > span:hover, .pagination.ct-green > .active > a:focus, .pagination.ct-green > .active > span:focus{
 	   background-color: #05AE0E;
@@ -187,9 +193,13 @@
 	    border: 1px solid #4765a0;
 	    color: #4765a0;
 	}
-	.nav-pills.ct-azure > li > a {
+	.nav-pills.ct-azzure > li > a {
 	    border: 1px solid #2CA8FF;
 	    color: #2CA8FF;
+	}
+	.nav-pills.ct-brown > li > a {
+	    border: 1px solid $dark-grey;
+	    color: $dark-grey;
 	}
 	.nav-pills.ct-green > li > a {
 	    border: 1px solid #05AE0E;
@@ -467,6 +477,9 @@
 	.wizard-card.ct-wizard-azzure .picture:hover{
 	    border-color: #2CA8FF;
 	}
+	.wizard-card.ct-wizard-brown .picture:hover{
+	    border-color: $dark-grey;
+	}
 	.wizard-card.ct-wizard-green .picture:hover{
 	    border-color: #05ae0e;
 	}
@@ -510,6 +523,9 @@
 	}
 	.wizard-card.ct-wizard-azzure .picture2:hover{
 	    border-color: #2CA8FF;
+	}
+	.wizard-card.ct-wizard-brown .picture2:hover{
+	    border-color: $dark-grey;
 	}
 	.wizard-card.ct-wizard-green .picture2:hover{
 	    border-color: #05ae0e;
@@ -573,6 +589,9 @@
 	}
 	.wizard-card.ct-wizard-azzure .nav-pills > li.active a{
 	    background-color: #2CA8FF;
+	}
+	.wizard-card.ct-wizard-brown .nav-pills > li.active a{
+	    background-color: $dark-grey;
 	}
 	.wizard-card.ct-wizard-blue .nav-pills > li.active a{
 	    background-color: #3472f7;
@@ -669,6 +688,9 @@
 
 	.wizard-card.ct-wizard-azzure .choice:hover .icon, .wizard-card.ct-wizard-azzure .choice.active .icon{
 	    border-color: #2CA8FF;
+	}
+	.wizard-card.ct-wizard-brown .choice:hover .icon, .wizard-card.ct-wizard-brown .choice.active .icon{
+	    border-color: $dark-grey;
 	}
 	.wizard-card.ct-wizard-blue .choice:hover .icon, .wizard-card.ct-wizard-blue .choice.active .icon{
 	    border-color: #3472f7;

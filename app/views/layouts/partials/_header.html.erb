@@ -11,7 +11,9 @@
 				<span class="icon-bar bar2"></span>
 				<span class="icon-bar bar3"></span>
 			</button>
-			<a class="navbar-brand" href="#charts">Action Cable Chat</a>
+			<%= link_to main_app.root_path, class: "navbar-brand" do %>
+      	Action Cable Chat
+    	<% end %>
 		</div>
 		
 		<div class="collapse navbar-collapse">
@@ -41,13 +43,36 @@
 								  	</button>
 								  </div>
 								</li>
-		          <% else %>
-		            <% @notifications.each do |notification| %>
+		          <% elsif @notifications.unread.count > 0 %>
+		            <% @notifications.unread.each do |notification| %>
 		            	<%= render partial: "layouts/partials/notification", locals: { notification: notification } %>
 		            <% end %>
+
+		            <% @notifications.read.each do |notification| %>
+		            	<%= render partial: "layouts/partials/notification_slim", locals: { notification: notification } %>
+		            <% end %>
+
+	            	<li><%= link_to "View All Notifications", user_notifications_path(current_user), class: "btn btn-default btn-block btn-raised" %></li>
+		          <% else %>
+		            <% @notifications.each do |notification| %>
+		            	<%= render partial: "layouts/partials/notification_slim", locals: { notification: notification } %>
+		            <% end %>
+
+	            	<li><%= link_to "View All Notifications", user_notifications_path(current_user), class: "btn btn-default btn-block btn-raised" %></li>
 		          <% end %>
-	            
-	            <li><%= link_to "View All Notifications", user_notifications_path(current_user), class: "btn btn-default btn-block btn-raised" %></li>
+	          </ul>
+	        </li>
+
+					<li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	            <i class="material-icons">build</i>
+							<p>Admin Settings</p>
+	          </a>        
+	          
+	          <ul class="dropdown-menu">
+	          	<li class="dropdown-header text-center">Administrator Controls</li>
+
+	            <li><%= link_to "Manage Notifications", main_app.notifications_path %></li>
 	          </ul>
 	        </li>
 
@@ -63,6 +88,17 @@
 	            <li><%= link_to "Profile", main_app.profile_path %></li>
 							<li><%= link_to 'Edit Profile', main_app.edit_user_registration_path %></li>
 							<li><%= link_to "Logout", main_app.destroy_user_session_path, method: :get %></li>
+	          </ul>
+	        </li>
+				<% else %>
+					<li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<p>Login | Register</p>
+	          </a>        
+	          
+	          <ul class="dropdown-menu">
+	            <li><%= link_to "Login", main_app.new_user_session_path %></li>
+							<li><%= link_to "Register", main_app.new_user_registration_path %></li>
 	          </ul>
 	        </li>
 				<% end %>

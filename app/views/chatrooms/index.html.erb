@@ -1,4 +1,4 @@
-<div class="section section-nude-gray full-height">
+  <div class="section section-nude-gray full-height">
   <div class="container">
     <div class="row margin-top-50">
       <div class="col-md-12">
@@ -29,7 +29,9 @@
                 <th data-field="state" class="text-center" data-checkbox="true"></th>
                 <th data-field="id" data-visible="false" class="text-center">ID</th>
                 <th data-field="name" class="text-center" data-sortable="true">Name</th>
-                <th data-field="age" class="text-center" data-sortable="true">Created</th>
+                <th data-field="members" class="text-center col-md-1" data-sortable="false">Users</th>
+                <th data-field="messages" class="text-center col-md-1" data-sortable="false">Messages</th>
+                <th data-field="age" class="text-center col-md-2" data-sortable="true">Created</th>
                 <th data-field="date_created" data-visible="false" class="text-center" data-sortable="true">Date Created</th>
                 <th data-field="actions" class="col-md-2 td-actions text-center"></th>
               </thead>
@@ -39,6 +41,8 @@
                     <td></td>
                     <td><%= chatroom.id %></td>
                     <td><%= link_to "#{chatroom.name}", chatroom_path(chatroom) %></td>
+                    <td><%= chatroom.users.count %></td>
+                    <td><%= chatroom.messages.count %></td>
                     <td><%= time_ago_in_words(chatroom.created_at) %> ago</td>
                     <td><%= chatroom.created_at.strftime("%b %-d %Y - %l:%M %P") %></td>
                     <td>

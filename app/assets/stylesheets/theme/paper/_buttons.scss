@@ -53,6 +53,7 @@
 .navbar .navbar-nav > li > a.btn.btn-info, .btn-info    { @include btn-styles($info-color); }
 .navbar .navbar-nav > li > a.btn.btn-warning, .btn-warning { @include btn-styles($warning-color); }
 .navbar .navbar-nav > li > a.btn.btn-danger, .btn-danger  { @include btn-styles($danger-color); }
+.navbar .navbar-nav > li > a.btn.btn-brown, .btn-brown  { @include btn-styles($dark-grey); }
 
 .btn-neutral {
     @include btn-styles($white-color);

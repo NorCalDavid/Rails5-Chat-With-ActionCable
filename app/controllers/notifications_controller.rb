@@ -1,12 +1,13 @@
 class NotificationsController < ApplicationController
-  before_action :set_notification, only: [:show, :edit, :update, :destroy]
+  before_action :set_notification, only: [:show, :edit, :update, :read, :destroy]
   before_action :authenticate_user!
-  before_action :authenticate_admin!, only: [:new, :create, :edit, :update]
+  before_action :authenticate_admin, only: [:new, :create, :edit, :update]
 
   # GET /notifications
   def index
     if current_user.admin?
       @notifications = Notification.all.order(id: :desc)
+      render :admin_index
     elsif params[:user_id]
       @recepient = User.find(params[:user_id])
       @notifications = @recepient.notifications.order(id: :desc).limit(25)
@@ -18,6 +19,9 @@ class NotificationsController < ApplicationController
 
   # GET /notifications/1
   def show
+    if @notification.unread?
+      @notification.update_attributes(read_at: DateTime.current)
+    end
   end
 
   # GET /notifications/new
@@ -47,6 +51,19 @@ class NotificationsController < ApplicationController
       redirect_to notifications_url, notice: 'Notification was successfully updated.'
     else
       render :edit
+    end
+  end
+
+  # PATCH/PUT /notifications/1/read
+  def read
+    if current_user == @notification.recipient
+      if @notification.update_attributes(read_at: DateTime.current )
+        redirect_to notifications_url, notice: 'Notification was successfully updated.'
+      else
+        redirect_to notifications_url, alert: 'Unable to Update Notification.'
+      end
+    else
+      redirect_to "/", :alert => "Not Authorized."
     end
   end
 

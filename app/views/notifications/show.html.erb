@@ -1,39 +1,57 @@
-<p id="notice"><%= notice %></p>
+<div class="section section-nude-gray full-height">
+  <div class="container">
+    <div class="row margin-top-50">
+      <div class="col-md-12">
+        <div class="card card-nav-tabs card-with-border padding-bottom-50">
+          <div class="header header-grey">
+            <h1 class="title title-brand text-center">Notification</h1>
+          </div>
 
-<p>
-  <strong>Recipient:</strong>
-  <%= @notification.recipient_id %>
-</p>
+          <div class="content">
+            <div class="row">
+              <div class="col-md-offset-1 col-md-10">
+                <div class="card card-raised">
+                  <div class="content <%= @notification.color_class %>">
+                    <div class="row">
+                      <div class="col-sm-7">
+                        <h1 class="card-title">
+                          <i class="material-icons"><%= @notification.icon %></i> <%= @notification.actor.name %>
+                        </h1>
+                      </div> 
+                      
+                      <div class="col-sm-5 text-right">
+                        <div class="btn-group">
+                          <% if @notification.read_at.nil? %>
+                            <%= link_to read_notification_path(@notification), method: :post, class: "btn btn-white btn-icon btn-raised btn-sm" do %>
+                              <span class="text-success text-bold"><i class="material-icons">check_circle</i> Mark Read</span>
+                            <% end %>
+                          <% end %>
 
-<p>
-  <strong>User:</strong>
-  <%= @notification.user %>
-</p>
+                          <%= link_to @notification, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-white btn-icon btn-raised btn-sm" do %>
+                            <span class="text-danger text-bold"><i class="material-icons">delete_forever</i> Delete</span>
+                          <% end %>
+                        </div>
+                      </div> 
+                    </div>
 
-<p>
-  <strong>Action:</strong>
-  <%= @notification.action %>
-</p>
+                    <div class="row">
+                      <div class="col-sm-12">
+                          <h4 class="card-title no-margin-top">
+                            <%= @notification.action %> on <%= "#{ time_ago_in_words(@notification.created_at) } ago" %>
+                            <% unless @notification.read_at.nil? %>
+                              <span class="pull-right text-muted text-bold"><i class="md-18 material-icons">check_circle</i> Read <%= time_ago_in_words(@notification.read_at).titleize %> Ago</span>
+                            <% end %>
+                          </h4>
+                        </div>  
+                    </div>
+                  </div>
+                </div>
+              </div> 
+            </div>
+          </div>
+        </div><!--  end card  -->
+      </div> <!-- end col-md-12 -->
+    </div> <!-- end row -->
 
-<p>
-  <strong>Notifiable type:</strong>
-  <%= @notification.notifiable_type %>
-</p>
-
-<p>
-  <strong>Notifiable:</strong>
-  <%= @notification.notifiable_id %>
-</p>
-
-<p>
-  <strong>Color:</strong>
-  <%= @notification.color %>
-</p>
-
-<p>
-  <strong>Icon:</strong>
-  <%= @notification.icon %>
-</p>
-
-<%= link_to 'Edit', edit_notification_path(@notification) %> |
-<%= link_to 'Back', notifications_path %>
+  </div>
+</div>

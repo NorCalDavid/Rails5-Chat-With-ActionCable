@@ -16,7 +16,7 @@
 		            <%= f.hidden_field :user_id, value: current_user.id %>
 		            <%= f.hidden_field :chatroom_id, value: @chatroom.id %>
 		              
-		            <%= f.text_area :body, placeholder: "Enter Message Here", class: "form-control textarea", autofocus: true %>
+		            <%= f.text_field :body, placeholder: "Enter Message Here", class: "form-control", autofocus: true %>
 		        	<% end %>
 	          </div> 
 
@@ -78,7 +78,7 @@
 				    <ul class="list-unstyled team-members">
 				      <li>
 			          <div class="row border-top border-bottom no-margin-top">
-			            <div class="col-xs-3 padding-top-20">
+			            <div class="col-xs-3 padding-top-20 padding-bottom-20">
 			              <div class="avatar">
 			              	<%= image_tag current_user.thumb, class: "img-circle img-no-padding img-raised simg-responsive" %>
 			              </div>
@@ -144,7 +144,7 @@
 
 <script type="text/javascript">
 
-	$(document).on('turbolinks:load', function() {
+	$(document).on('ready', function() {
 		$("#new-message").on('keypress', function(e) {
 			if(e && e.keyCode == 13) {
 				e.preventDefults;

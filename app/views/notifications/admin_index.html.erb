@@ -1,0 +1,121 @@
+<div class="section section-nude-gray full-height">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-nav-tabs card-with-border padding-bottom-50">
+          <div class="header header-grey">
+            <h1 class="title title-brand text-center">Notifications</h1>
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li>
+                    <%= link_to new_notification_path, class: 'btn btn-simple btn-icon btn-xs' do %>
+                      <i class="material-icons">add</i>
+                      Send Notification
+                    <%  end %>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="toolbar">
+              <!--        Here you can write extra buttons/actions for the toolbar              -->
+            </div>
+
+            <table id="bootstrap-table" class="bootstrap-table table table-hover table-striped">
+              <thead>
+                <th data-field="state" class="text-center" data-checkbox="true"></th>
+                <th data-field="id" data-visible="false" class="text-center">ID</th>
+                <th data-field="from" data-visible="false" class="text-center" data-sortable="true">From</th>
+                <th data-field="to" class="col-md-2 text-center" data-sortable="true">To</th>
+                <th data-field="icon_color" class="col-md-1 text-center" data-sortable="false">Icon/Color</th>
+                <th data-field="messages" class="text-center" data-sortable="false">Action</th>
+                <th data-field="age" class="col-md-2 text-center" data-sortable="true">Created</th>
+                <th data-field="date_created" data-visible="false" class="text-center" data-sortable="true">Date Created</th>
+                <th data-field="read" class="col-md-2 text-center" data-sortable="true">Read</th>
+                <th data-field="date_read" data-visible="false" class="text-center" data-sortable="true">Date Read</th>
+                <th data-field="actions" class="col-md-1 td-actions text-center"></th>
+              </thead>
+              <tbody>
+                <% @notifications.each do |notification| %>
+                  <tr>
+                    <td></td>
+                    <td><%= notification.id %></td>
+                    <td><%= notification.actor.username %></td>
+                    <td><%= notification.recipient.username %></td>
+                    <td>
+                      <span class="label label-<%= notification.color %>">
+                        <i class="text-white material-icons">add</i>
+                      </span>
+                    </td>
+                    <td><%= notification.action %></td>
+                    <td><%= time_ago_in_words(notification.created_at) %> ago</td>
+                    <td><%= notification.created_at.strftime("%b %-d %Y - %l:%M %P") %></td>
+                    <td><%= time_ago_in_words(notification.read_at) unless notification.read_at.nil? %> ago</td>
+                    <td><%= notification.read_at.strftime("%b %-d %Y - %l:%M %P") unless notification.read_at.nil? %></td>
+                    <td>
+                      <%= link_to edit_notification_path(notification), class: 'btn btn-simple btn-warning btn-icon table-action edit' do %>
+                        <i class="text-warning fa fa-edit"></i>
+                      <%- end -%>
+                      <%= link_to notification_path(notification), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) }, class: 'btn btn-simple btn-danger btn-icon chatroom-action delete', title: "#{ t('.destroy', default: t('helpers.links.destroy')) }" do %>
+                        <i class="fa fa-trash"></i>
+                      <%- end -%>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div><!--  end card  -->
+      </div> <!-- end col-md-12 -->
+    </div> <!-- end row -->
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  var $table = $('#bootstrap-table');
+
+  $().ready(function(){
+    
+    $table.bootstrapTable({
+      toolbar: ".toolbar",
+      clickToSelect: true,
+      showRefresh: true,
+      search: true,
+      showToggle: true,
+      showColumns: true,
+      pagination: true,
+      searchAlign: 'left',
+      pageSize: 5,
+      clickToSelect: false,
+      pageList: [5,10,25,50,100],
+
+      formatShowingRows: function(pageFrom, pageTo, totalRows){
+        //do nothing here, we don't want to show the text "showing x of y from..."
+      },
+
+      formatRecordsPerPage: function(pageNumber){
+        return pageNumber + " rows visible";
+      },
+
+      icons: {
+        refresh: 'fa fa-refresh',
+        toggle: 'fa fa-th-list',
+        columns: 'fa fa-columns',
+        detailOpen: 'fa fa-plus-circle',
+        detailClose: 'fa fa-minus-circle'
+      }
+    });
+
+    //activate the tooltips after the data table is initialized
+    $('[rel="tooltip"]').tooltip();
+
+    $(window).resize(function () {
+      $table.bootstrapTable('resetView');
+    });
+  });
+
+</script>

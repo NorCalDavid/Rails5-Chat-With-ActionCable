@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :notifications do 
+    post 'read' => 'notifications#read', as: 'read', on: :member
     get 'destroy' => 'notifications#destroy', as: "destroy", on: :member
   end
 
