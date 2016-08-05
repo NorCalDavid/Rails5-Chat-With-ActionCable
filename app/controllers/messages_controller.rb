@@ -3,41 +3,14 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_chatroom
 
-  # GET /messages
-  def index
-    @messages = Message.all
-  end
-
-  # GET /messages/1
-  def show
-  end
-
-  # GET /messages/new
-  def new
-    @message = Message.new
-  end
-
-  # GET /messages/1/edit
-  def edit
-  end
-
   # POST /messages
   def create
-    @message = Message.new(message_params)
+    @message = @chatroom.messages.new(message_params)
 
     if @message.save
-      redirect_to @message.chatroom, notice: 'Message was sent.'
+      redirect_to @message.chatroom, notice: 'Message was sent successfully.'
     else
-      render :new
-    end
-  end
-
-  # PATCH/PUT /messages/1
-  def update
-    if @message.update(message_params)
-      redirect_to @message.chatroom, notice: 'Message was successfully updated.'
-    else
-      render :edit
+      redirect_to @message.chatroom, notice: 'Message failed to send.'
     end
   end
 

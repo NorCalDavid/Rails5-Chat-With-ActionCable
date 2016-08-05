@@ -9,6 +9,7 @@ class ChatroomsController < ApplicationController
 
   # GET /chatrooms/1
   def show
+    @messages = @chatroom.messages.order(id: :desc).limit(100)
   end
 
   # GET /chatrooms/new

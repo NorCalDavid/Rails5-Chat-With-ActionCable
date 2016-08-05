@@ -38,7 +38,7 @@
                   <tr>
                     <td></td>
                     <td><%= chatroom.id %></td>
-                    <td><%= chatroom.name %></td>
+                    <td><%= link_to "#{chatroom.name}", chatroom_path(chatroom) %></td>
                     <td><%= time_ago_in_words(chatroom.created_at) %> ago</td>
                     <td><%= chatroom.created_at.strftime("%b %-d %Y - %l:%M %P") %></td>
                     <td>

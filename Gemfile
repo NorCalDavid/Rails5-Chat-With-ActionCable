@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.0'
 gem 'pg'
+gem 'redis'
 gem 'enumerize'
 gem 'puma'
 gem 'figaro'

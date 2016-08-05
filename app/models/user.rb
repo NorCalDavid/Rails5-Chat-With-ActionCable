@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :chatroom_users
   has_many :chatrooms, through: :chatroom_users 
   has_many :messages 
+  has_many :notifications, foreign_key: :recipient_id
 
   after_initialize :set_default_role, :if => :new_record?
 
@@ -75,4 +76,15 @@ class User < ApplicationRecord
       return self.image.url(:medium)
     end
   end
+
+  def notifications_status
+    if self.notifications.unread.count > 0
+      return ["text-danger", "notifications_active"]
+    elsif self.notifications.count > 0
+      return ["text-primary", "notifications"]
+    else
+      return ["text-muted", "notifications_none"]
+    end
+  end
+
 end

@@ -13,6 +13,7 @@
 //= require jquery2
 //= require jquery_ujs
 //= require jquery-ui
+//= require turbolinks
 //= require bootstrap-sprockets
 
 //= require theme/moment.min.js
@@ -95,3 +96,4 @@
 //= require plugins/fancybox/helpers/jquery.fancybox-thumbs.js
 
 //= require cable.js
+//= require channels/notifications.js

@@ -1,89 +1,167 @@
 <div class="row">
 	
-	<div class="col-md-6 col-md-offset-1">
+	<div class="col-md-5 col-md-offset-1">
 		<div class="card card-nav-tabs card-chat">
 			<div class="header header-primary">
 				<h2 class="title text-center no-margin-bottom">Chat</h2>
 				<h4 class="text-center no-margin-top"><%= @chatroom.name %></h4>
 			</div>
 
-			<div class="content">
-				<ol class="chat">
-					<% @chatroom.messages.each do |message| %>
-						<li class="<%= message.user == current_user ? 'self' : 'other' %>">
-							<div class="avatar">
-								<%= image_tag message.user.thumb, alt: "crash" %>
-							</div>
-					    
-					    <div class="msg">
-						    <p><%= message.body %></p>
-									<i class="ti-alarm-clock"></i>
-								<h6><%= time_ago_in_words(message.created_at) %> ago</h6>
-						  </div>
-					  </li>
-					<% end %>					
-				</ol>
-				
-				<hr>
-				
-				<div class="send-message">
-					<div class="col-sm-1">
-						<div class="avatar">
-							<%= image_tag current_user.thumb, alt: "crash" %>
-						</div>
-					</div> 
+			<div class="row">
+				<div class="content">
+					<div class="send-message">
 
-					<%= form_for [@chatroom, Message.new] do |f| %>
-						<div class="col-sm-8">
-	            <%= f.hidden_field :user_id, value: current_user.id %>
-	            <%= f.hidden_field :chatroom_id, value: @chatroom.id %>
-	              
-	            <%= f.text_area :body, placeholder: "Enter Message Here", class: "form-control textarea" %>
+						<div class="col-sm-10 padding-top-5">
+							<%= form_for [@chatroom, Message.new], id: "new-message" do |f| %>
+		            <%= f.hidden_field :user_id, value: current_user.id %>
+		            <%= f.hidden_field :chatroom_id, value: @chatroom.id %>
+		              
+		            <%= f.text_area :body, placeholder: "Enter Message Here", class: "form-control textarea", autofocus: true %>
+		        	<% end %>
 	          </div> 
 
-	          <div class="col-sm-2">
-	            <div class="send-button">
-	            	<%= f.submit "Send", class: "btn btn-primary btn-fill btn-small" %>
-	            </div> 
-	          </div>	                      
-	        <% end %>
+						<div class="col-sm-2 padding-top-5">
+							<%= image_tag current_user.thumb, alt: "crash", class: "img-raised img-circle img-responsive" %>
+						</div> 
+		      </div> 
+		    </div>
+		  </div>
+							
+			<hr>
+
+			<div class="row">
+				<div class="content">
+					<ol class="chat">
+						<% @messages.each do |message| %>
+							<li class="<%= message.user == current_user ? 'self' : 'other' %>">
+								<div class="avatar">
+									<%= image_tag message.user.thumb, alt: "crash" %>
+								</div>
+						    
+						    <div class="msg">
+							    <p><%= message.body %></p>
+										<i class="ti-alarm-clock"></i>
+									<h6><%= time_ago_in_words(message.created_at) %> ago</h6>
+							  </div>
+							  <% if message.user == current_user %>
+								  <%= link_to chatroom_message_path(@chatroom, message), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) }, class: 'btn btn-simple btn-danger btn-icon chatroom-action delete', title: "#{ t('.destroy', default: t('helpers.links.destroy')) }" do %>
+	                  <i class="fa fa-trash"></i>
+	                <%- end -%>
+                <%- end -%>
+						  </li>
+						<% end %>					
+					</ol>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-md-4">
-		<div class="card card-nav-tabs">
-		  <div class="header header-info">
-		    <h2 class="title text-center">Team Members</h2>
-		  </div>
-		  
-		  <div class="content">
-		    <ul class="list-unstyled team-members">
-		    	<% @chatroom.users.each do |user| %>
-			      <li>
-		          <div class="row">
-		            <div class="col-xs-3">
-		              <div class="avatar">
-		              	<%= image_tag current_user.thumb, class: "img-circle img-no-padding img-responsive" %>
-		              </div>
-		            </div>
+	<div class="col-md-5">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card card-nav-tabs">
+				  <div class="header header-grey">
+				    <h2 class="title text-center pull-center">Chatroom Info</h2>
+				  </div>
 
-		            <div class="col-xs-6">
-		              <%= user.username %>
-		              <br />
-		              <span class="text-info"><small><strong>Member Since:</strong> <%= user.created_at.strftime("%b %Y") %></small></span>
-		              <span class="text-info"><small><strong>Last Seen:</strong> <%= time_ago_in_words(user.last_sign_in_at) %> ago</small></span>
-		            </div>
+				  <div id="message-chatrooms<%= @chatroom.id %>">
+			      <h4 class="text-center no-padding-all">
+				      Toggle 
+				      <a onclick="toggleCard('#icon-chatrooms<%= @chatroom.id %>', '#card-chatrooms<%= @chatroom.id %>', '#message-chatrooms<%= @chatroom.id %>')">
+				        <i id="icon-chatrooms<%= @chatroom.id %>" class="text-primary fa fa-chevron-down"></i>
+				      </a>
+				       <%= @chatroom.name %> Details
+			       </h4>
+			    </div>
+				  
+				  <div id="card-chatrooms<%= @chatroom.id %>" class="collapse content">
+				    <ul class="list-unstyled team-members">
+				      <li>
+			          <div class="row border-top border-bottom no-margin-top">
+			            <div class="col-xs-3 padding-top-20">
+			              <div class="avatar">
+			              	<%= image_tag current_user.thumb, class: "img-circle img-no-padding img-raised simg-responsive" %>
+			              </div>
+			            </div>
 
-		            <div class="col-xs-3 text-right">
-		              <!-- <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn> -->
-		            </div>
-		          </div>
-			      </li>
-		      <% end %>
-				</ul>
-		  </div>
+			            <div class="col-xs-9 padding-bottom-10">
+			            	<h3 class="title no-margin-bottom no-padding-bottom">Chatroom Moderator</h3>
+			              <%= current_user.username %>
+			              <br />
+			              <span class="text-info"><small><strong>Member Since:</strong> <%= current_user.created_at.strftime("%b %Y") %></small></span><br/>
+			              <span class="text-info"><small><strong>Last Seen:</strong> <%= time_ago_in_words(current_user.last_sign_in_at) %> ago</small></span>
+			            </div>
+			          </div>
+				      
+			          <div class="row">
+			            <div class="col-xs-12 padding-top-25">
+			            	<h3 class="title text-center">Chatroom Info</h3>
+			            </div>
+			          </div>
+				      </li>
+						</ul>
+				  </div>
+				</div>
+			</div>
+
+			<div class="col-md-12">
+				<div class="card card-nav-tabs">
+				  <div class="header header-info">
+				    <h2 class="title text-center">Team Members</h2>
+				  </div>
+				  
+				  <div class="content">
+				    <ul class="list-unstyled team-members">
+				    	<% @chatroom.users.each do |user| %>
+					      <li>
+				          <div class="row">
+				            <div class="col-xs-3">
+				              <div class="avatar">
+				              	<%= image_tag user.thumb, class: "img-circle img-no-padding img-raised img-responsive" %>
+				              </div>
+				            </div>
+
+				            <div class="col-xs-6">
+				              <%= user.username %>
+				              <br />
+				              <span class="text-info"><small><strong>Member Since:</strong> <%= user.created_at.strftime("%b %Y") %></small></span>
+				              <span class="text-info"><small><strong>Last Seen:</strong> <%= time_ago_in_words(user.last_sign_in_at) %> ago</small></span>
+				            </div>
+
+				            <div class="col-xs-3 text-right">
+				              <!-- <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn> -->
+				            </div>
+				          </div>
+					      </li>
+				      <% end %>
+						</ul>
+				  </div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+
+	$(document).on('turbolinks:load', function() {
+		$("#new-message").on('keypress', function(e) {
+			if(e && e.keyCode == 13) {
+				e.preventDefults;
+				$(this).sumbit();
+			}
+		});
+	});
+
+  function toggleCard(iconTarget, cardTarget, messageTarget) {
+    $(iconTarget).toggleClass("fa-chevron-down fa-chevron-up");
+    $(cardTarget).toggle();
+    $container.isotope('layout');
+  };
+
+  function closeCard(cardTarget) {
+    $(cardTarget).fadeOut();
+    $container.isotope( 'remove', $(cardTarget)).isotope('layout');
+  };
+
+</script>

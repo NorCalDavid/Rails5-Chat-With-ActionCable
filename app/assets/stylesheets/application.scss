@@ -19,6 +19,7 @@
 
 /* Creative Tim Paper Pro Theme */
 @import "theme/paper-dashboard.scss";
+@import "theme/theme.scss";
 @import "theme/themify-icons.scss";
 
 /* Plugins */
@@ -47,4 +48,6 @@
 @import "custom/custom-align.scss";
 
 /* Function Specific CSS */
+@import "homepage.scss";
+@import "notifications.scss";
 @import "chatrooms.scss";

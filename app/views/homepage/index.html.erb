@@ -1,5 +1,4 @@
-<div class="page-header header-filter screen" id="screen-1" 
-		 data-video="<%= homepage_background_video %>" > 
+<div class="page-header header-filter screen" id="screen-1"> 
 	<div class="container">
 		<div class="row">
       <h1 class="title title-center">Sample Chatroom Application</h1>
@@ -9,26 +8,3 @@
     </div>
 	</div>
 </div>
-
-<script src="http://vjs.zencdn.net/c/video.js"></script>
-
-<script>
-
-
-	$(document).ready(function() {
-
-	var BV = new $.BigVideo();
-	BV.init();
-	if (Modernizr.touch) {
-	    BV.show('<%= homepage_background_poster %>');
-	} else {
-	    BV.show('<%= homepage_background_video %>',{ambient:true});
-	}
-
-	BV.getPlayer().on("ended", function() {
-		var player = BV.getPlayer();
-		player.pause();
-		player.currentTime(29);
-	});
-	
-</script>
