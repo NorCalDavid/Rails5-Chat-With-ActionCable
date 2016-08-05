@@ -75,9 +75,9 @@ class Notification < ApplicationRecord
               "notifications_active" =>     { name: "Notification Active",    html: "<i class='material-icons'>notifications_active</i>" },
               "notifications" =>            { name: "Notification",           html: "<i class='material-icons'>notifications</i>" },
               "notifications_none" =>       { name: "Notification None",      html: "<i class='material-icons'>notifications_none</i>" },
-              "notifications_off" =>        { name: "Notification Off",       html: "<i class='material-icons'>notifications_off</i>" } },
-              "sentiment_very_satisfied" => { name: "Very Satisfied",         html: "<i class='material-icons'>sentiment_very_satisfied</i>" } },
-              "sentiment_satisfied" =>      { name: "Satisfied",              html: "<i class='material-icons'>sentiment_satisfied</i>" } },
+              "notifications_off" =>        { name: "Notification Off",       html: "<i class='material-icons'>notifications_off</i>" },
+              "sentiment_very_satisfied" => { name: "Very Satisfied",         html: "<i class='material-icons'>sentiment_very_satisfied</i>" },
+              "sentiment_satisfied" =>      { name: "Satisfied",              html: "<i class='material-icons'>sentiment_satisfied</i>" },
               "sentiment_dissatisfied" =>   { name: "Dissatisfied",           html: "<i class='material-icons'>sentiment_dissatisfied</i>" } }
   end 
 
