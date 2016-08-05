@@ -1,5 +1,5 @@
 <div class="section section-nude-gray full-height">
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
       <div class="col-md-12">
 				<div class="row">
@@ -8,16 +8,23 @@
 							<div class="nav-align-center">
 								<ul class="nav nav-pills nav-pills-icons" role="tablist">
 									<li class="active">
-										<a href="#invitations" role="tab" data-toggle="tab">
-											<i class="material-icons">people</i>
+										<a href="#profile" role="tab" data-toggle="tab">
+											<i class="material-icons">assignment_ind</i>
 											Friends
 										</a>
 									</li>
 
 									<li>
 										<a href="#connections" role="tab" data-toggle="tab">
-											<i class="material-icons">people</i>
-											Friends
+											<i class="material-icons">group</i>
+											Friends / Invitations
+										</a>
+									</li>
+
+									<li>
+										<a href="#community-connections" role="tab" data-toggle="tab">
+											<i class="material-icons">group_add</i>
+											Community Users
 										</a>
 									</li>
 								</ul>
@@ -27,293 +34,317 @@
 					</div>
 				</div> 
 
-				<div class="row">
-					<div class="col-md-5">
-					    <div class="card card-user">
-					        <div class="image">
-					            <img src="https://s3-us-west-1.amazonaws.com/daviduli-main/assets/default-artwork/city.jpg" alt="..."/>
-					        </div>
-					        <div class="content">
-					            <div class="author">
-					            <%= image_tag(@user.picture, class: "avatar border-white") %>
-					              <h4 class="title">Chet Faker<br />
-					                 <a href="#"><small>@chetfaker</small></a>
-					              </h4>
-					            </div>
-					            <p class="description text-center">
-					                "I like the way you work it <br>
-					                No diggity <br>
-					                I wanna bag it up"
-					            </p>
-					        </div>
-					        <hr>
-					        <div class="text-center">
-					            <div class="row">
-					                <div class="col-md-3 col-md-offset-1">
-					                    <h5>12<br /><small>Files</small></h5>
-					                </div>
-					                <div class="col-md-4">
-					                    <h5>2GB<br /><small>Used</small></h5>
-					                </div>
-					                <div class="col-md-3">
-					                    <h5>24,6$<br /><small>Spent</small></h5>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
-					    <div class="card">
-					        <div class="header header-grey">
-					            <h2 class="title text-center">Following</h2>
-					        </div>
-					        <div class="content">
-					            <ul class="list-unstyled team-members">
-					                  <li>
-					                      <div class="row">
-					                          <div class="col-xs-3">
-					                              <div class="avatar">
-					                                  <img src="../../assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-					                              </div>
-					                          </div>
-					                          <div class="col-xs-6">
-					                              DJ Khaled
-					                              <br />
-					                              <span class="text-muted"><small>Offline</small></span>
-					                          </div>
-					                          <div class="col-xs-3 text-right">
-					                              <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-					                          </div>
-					                      </div>
-					                  </li>
-					                  <li>
-					                      <div class="row">
-					                          <div class="col-xs-3">
-					                              <div class="avatar">
-					                                  <img src="../../assets/img/faces/face-1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-					                              </div>
-					                          </div>
-					                          <div class="col-xs-6">
-					                              Creative Tim
-					                              <br />
-					                              <span class="text-success"><small>Available</small></span>
-					                          </div>
-					                          <div class="col-xs-3 text-right">
-					                              <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-					                          </div>
-					                      </div>
-					                  </li>
-					                  <li>
-					                      <div class="row">
-					                          <div class="col-xs-3">
-					                              <div class="avatar">
-					                                  <img src="../../assets/img/faces/face-3.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-					                              </div>
-					                          </div>
-					                          <div class="col-xs-6">
-					                              Flume
-					                              <br />
-					                              <span class="text-danger"><small>Busy</small></span>
-					                          </div>
-					                          <div class="col-xs-3 text-right">
-					                              <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-					                          </div>
-					                      </div>
-					                  </li>
-					            </ul>
-					        </div>
-					    </div>
+				<div class="tab-content">
+					<div class="tab-pane active" id="profile">
+						
 					</div>
 
-
-					<div class="col-md-7">
-						<div class="tab-pane active" id="invitations">
-							<div class="card">
-				        <div class="header header-grey">
-				          <h2 class="title text-center">Friend/User Invitations</h2>
-				        </div>
-				        
-				        <div class="content">
-									<div class="col-md-offset-1 col-md-10 no-margin-bottom">
-										<h4 class="title">Pending Invitations</h4>
-										<div class="row">
-											<% if @user.pending_invitations.count == 0 %>
-												<% if @user == current_user %>
-													<div class="bordered border-rounded">
-														<h3 class="title text-center text-muted">You Do Not Have Any Pending Invitations!</h3>
-														<p class="card-description margin-top-10 text-center">
-															<%= link_to 'Invite New User', main_app.new_user_invitation_path, class: "btn btn-fill btn-primary btn-round" %>
-														</p>
-													</div>
+					<div class="tab-pane" id="connections">
+						<div class="row margin-top-25">
+							<div class="col-md-12">
+								<div class="card">
+					        <div class="header header-grey">
+					          <h2 class="title text-center">Friend/User Invitations</h2>
+					        </div>
+					        
+					        <div class="content">
+										<div class="col-md-offset-1 col-md-10 no-margin-bottom">
+											<h4 class="title">Pending Invitations</h4>
+											<div class="row">
+												<% if @user.pending_invitations.count == 0 %>
+													<% if @user == current_user %>
+														<div class="bordered border-rounded">
+															<h3 class="title text-center text-muted">You Do Not Have Any Pending Invitations!</h3>
+															<p class="card-description margin-top-10 text-center">
+																<%= link_to 'Invite New User', main_app.new_user_invitation_path, class: "btn btn-fill btn-primary btn-round" %>
+															</p>
+														</div>
+													<% else %>
+														<h3 class="title text-center text-muted bordered border-rounded"><%= @user.name %> Does Not Have Any Pending Invitations!</h3>
+													<% end %>
 												<% else %>
-													<h3 class="title text-center text-muted bordered border-rounded"><%= @user.name %> Does Not Have Any Pending Invitations!</h3>
+													<% @user.pending_invitations.each do |friend| %>
+														<div class="col-md-2">
+															<div class="card card-profile card-plain">
+																<div class="col-md-12">
+									                <%= link_to public_profile_path(id: friend.id), rel: "tooltip", title: "#{friend.name} invited on: #{friend.invitation_sent_at.strftime('%b %Y') unless friend.invitation_sent_at.nil?}" do %>
+																		<div class="avatar">
+																			<% if friend.image_file_name.nil? %>
+																				<%= image_tag(friend.picture, class: "img-circle img-responsive img-raised") %>
+																			<% else %>
+												                  <%= image_tag(friend.picture, class: "img-circle img-responsive img-raised") %>
+											                <% end %>
+																		</div>
+										              <% end %>
+																	<p class="card-description margin-top-10 text-center">
+																		<%= link_to "Update", update_invitation_user_path(current_user, invited_user_id: friend.id), class: "btn btn-xs btn-fill btn-warning btn-round" %>
+																	</p>
+																</div>
+															</div>
+														</div>
+													<% end %>
+												<% end %>
+											</div>
+										</div> 
+
+										<div class="col-md-offset-1 col-md-10 no-margin-top">
+											<h4 class="title">Accepted Invitations</h4>
+											<div class="row">
+												<% if @user.accepted_invitations.count == 0 %>
+													<% if @user == current_user %>
+														<h3 class="title text-center text-muted bordered border-rounded">You Do Not Have Any Accepted Invitations!</h3>
+													<% else %>
+														<h3 class="title text-center text-muted bordered border-rounded"><%= @user.name %> Does Not Have Any Accepted Invitations!</h3>
+													<% end %>
+												<% else %>
+													<% @user.accepted_invitations.each do |friend| %>
+														<div class="col-md-2">
+															<div class="card card-profile card-plain">
+																<div class="col-md-12">
+									                <%= link_to public_profile_path(id: friend.id), rel: "tooltip", title: "#{friend.name} invited on: #{friend.invitation_sent_at.strftime('%b %Y') unless friend.invitation_sent_at.nil?}" do %>
+																		<div class="avatar">
+																			<% if friend.image_file_name.nil? %>
+																				<%= image_tag(friend.picture, class: "img-circle img-responsive img-raised") %>
+																			<% else %>
+												                  <%= image_tag(friend.picture, class: "img-circle img-responsive img-raised") %>
+											                <% end %>
+																		</div>
+										              <% end %>
+																	<p class="card-description margin-top-10 text-center">
+																		<%= link_to "Update", update_invitation_user_path(current_user, invited_user_id: friend.id), class: "btn btn-xs btn-fill btn-warning btn-round" %>
+																	</p>
+																</div>
+															</div>
+														</div>
+													<% end %>
+												<% end %>
+											</div>
+										</div> 
+									</div>
+								</div> 
+							</div> 
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+					        <div class="header header-info">
+					          <h2 class="title text-center">Friends</h2>
+					        </div>
+					        
+					        <div class="content">
+										<div class="row">
+											<% if @user.friends.count == 0 %>
+												<% if @user == current_user %>
+													<h3 class="title text-center text-muted bordered border-rounded">You Have Not Friended Anyone Yet!</h3>
+												<% else %>
+													<h3 class="title text-center text-muted bordered border-rounded"><%= @user.name %> Has Not Friended Anyone Yet!</h3>
 												<% end %>
 											<% else %>
-												<% @user.pending_invitations.each do |friend| %>
-													<div class="col-md-2">
+												<% @user.friends.each do |friend| %>
+													<div class="col-md-6">
 														<div class="card card-profile card-plain">
-															<div class="col-md-12">
-								                <%= link_to public_profile_path(id: friend.id), rel: "tooltip", title: "#{friend.name} invited on: #{friend.invitation_sent_at.strftime('%b %Y') unless friend.invitation_sent_at.nil?}" do %>
-																	<div class="avatar">
-																		<% if friend.image_file_name.nil? %>
-																			<%= image_tag(friend.picture, class: "img-circle img-responsive img-raised") %>
-																		<% else %>
-											                  <%= image_tag(friend.picture, class: "img-circle img-responsive img-raised") %>
+															<div class="col-md-5">
+																<div class="card-image">
+																	<% if friend.image_file_name.nil? %>
+																		<%= image_tag(friend.picture) %>
+																	<% else %>
+										                <%= link_to friend.image(:original), rel: "fancybox-thumb", :class => "fancybox-thumb margin-bottom-10", title: friend.name do %>
+										                  <%= image_tag(friend.picture) %>
 										                <% end %>
-																	</div>
-									              <% end %>
-																<p class="card-description margin-top-10 text-center">
-																	<%= link_to "Update", update_invitation_user_path(current_user, invited_user_id: friend.id), class: "btn btn-xs btn-fill btn-warning btn-round" %>
-																</p>
+										              <% end %>
+																</div>
+															</div>
+															<div class="col-md-7">
+																<div class="content">
+																	<h4 class="card-title"><%= friend.name %> <small>( <%= friend.role.to_s.capitalize %> )</small></h4>
+																	<h6 class="category text-muted">Member Since: <%= @user.created_at.strftime("%B %Y") %></h6>
+																	<% if @user == current_user %>
+																		<p class="card-description">
+																			<%= link_to destroy_friendships_path(friend_id: friend.id), method: :post, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-fill btn-danger btn-round", rel: "tooltip", title: 'Delete Your Friendship With This User' do %>
+					                              <i class="fa fa-times"></i> Delete Friendship
+					                            <% end %>
+																		</p>
+										              <% end %>
+																</div>
 															</div>
 														</div>
 													</div>
 												<% end %>
 											<% end %>
 										</div>
-									</div> 
-
-									<div class="col-md-offset-1 col-md-10 no-margin-top">
-										<h4 class="title">Accepted Invitations</h4>
-										<div class="row">
-											<% if @user.accepted_invitations.count == 0 %>
-												<% if @user == current_user %>
-													<h3 class="title text-center text-muted bordered border-rounded">You Do Not Have Any Accepted Invitations!</h3>
-												<% else %>
-													<h3 class="title text-center text-muted bordered border-rounded"><%= @user.name %> Does Not Have Any Accepted Invitations!</h3>
-												<% end %>
-											<% else %>
-												<% @user.accepted_invitations.each do |friend| %>
-													<div class="col-md-2">
-														<div class="card card-profile card-plain">
-															<div class="col-md-12">
-								                <%= link_to public_profile_path(id: friend.id), rel: "tooltip", title: "#{friend.name} invited on: #{friend.invitation_sent_at.strftime('%b %Y') unless friend.invitation_sent_at.nil?}" do %>
-																	<div class="avatar">
-																		<% if friend.image_file_name.nil? %>
-																			<%= image_tag(friend.picture, class: "img-circle img-responsive img-raised") %>
-																		<% else %>
-											                  <%= image_tag(friend.picture, class: "img-circle img-responsive img-raised") %>
-										                <% end %>
-																	</div>
-									              <% end %>
-																<p class="card-description margin-top-10 text-center">
-																	<%= link_to "Update", update_invitation_user_path(current_user, invited_user_id: friend.id), class: "btn btn-xs btn-fill btn-warning btn-round" %>
-																</p>
-															</div>
-														</div>
-													</div>
-												<% end %>
-											<% end %>
-										</div>
-									</div> 
+									</div>
 								</div>
 							</div> 
 						</div> 
-					</div> 
-
-					<div class="col-md-7">
-						<div class="tab-pane connections" id="connections">
-							<div class="card">
-				        <div class="header header-info">
-				          <h2 class="title text-center">Friends</h2>
-				        </div>
-				        
-				        <div class="content">
-									<div class="row">
-										<% if @user.friends.count == 0 %>
-											<% if @user == current_user %>
-												<h3 class="title text-center text-muted bordered border-rounded">You Have Not Friended Anyone Yet!</h3>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+					        <div class="header header-info">
+					          <h2 class="title text-center">Friended By</h2>
+					        </div>
+					        
+					        <div class="content">
+										<div class="row">
+											<% if @user.inverse_friends.count == 0 %>
+												<% if @user == current_user %>
+													<h3 class="title text-center text-muted bordered border-rounded">You Have Not Been Friended By Anyone Yet!</h3>
+												<% else %>
+													<h3 class="title text-center text-muted bordered border-rounded"><%= @user.name %> Has Not Been Friended By Anyone Yet!</h3>
+													<%= link_to create_friendships_path(friend_id: @user.id), data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-fill btn-info btn-round" do %>
+                            <i class="material-icons">add</i> Create Friendship
+                          <% end %>
+												<% end %>
 											<% else %>
-												<h3 class="title text-center text-muted bordered border-rounded"><%= @user.name %> Has Not Friended Anyone Yet!</h3>
-											<% end %>
-										<% else %>
-											<% @user.friends.each do |friend| %>
-												<div class="col-md-5 col-md-offset-1">
-													<div class="card card-profile card-plain">
-														<div class="col-md-5">
-															<div class="card-image">
-																<% if friend.image_file_name.nil? %>
-																	<%= image_tag(friend.picture) %>
-																<% else %>
-									                <%= link_to friend.image(:original), rel: "fancybox-thumb", :class => "fancybox-thumb margin-bottom-10", title: friend.name do %>
-									                  <%= image_tag(friend.picture) %>
-									                <% end %>
-									              <% end %>
+												<% @user.inverse_friends.each do |friend| %>
+													<div class="col-md-5 col-md-offset-1">
+														<div class="card card-profile card-plain">
+															<div class="col-md-5">
+																<div class="card-image">
+																	<% if friend.image_file_name.nil? %>
+																		<%= image_tag(friend.picture) %>
+																	<% else %>
+										                <%= link_to friend.image(:original), rel: "fancybox-thumb", :class => "fancybox-thumb margin-bottom-10", title: friend.name do %>
+										                  <%= image_tag(friend.picture) %>
+										                <% end %>
+										              <% end %>
+																</div>
 															</div>
-														</div>
-														<div class="col-md-7">
-															<div class="content">
-																<h4 class="card-title"><%= friend.name %> <small>( <%= friend.role.to_s.capitalize %> )</small></h4>
-																<h6 class="category text-muted">Member Since: <%= @user.created_at.strftime("%B %Y") %></h6>
-																<% if @user == current_user %>
+															<div class="col-md-7">
+																<div class="content">
+																	<h4 class="card-title"><%= friend.name %> <small>( <%= friend.role.to_s.capitalize %> )</small></h4>
+																	<h6 class="category text-muted">Member Since: <%= @user.created_at.strftime("%B %Y") %></h6>
+
 																	<p class="card-description">
-																		<%= render partial: "layouts/shared/delete_button", locals: { object_type: "Friendship", 
-					                                                                                  url: destroy_friendship_path(friend),
-					                                                                                  button_style: "btn-friendship" } %>
+																		<%= link_to block_friendships_path(friend_id: friend.id), method: :post, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-fill btn-danger btn-round", rel: "tooltip", title: 'Delete Your Friendship With This User' do %>
+					                              <i class="fa fa-times"></i> Delete Friendship
+					                            <% end %>
 																	</p>
-									              <% end %>
+																</div>
 															</div>
 														</div>
 													</div>
-												</div>
+												<% end %>
 											<% end %>
-										<% end %>
-									</div>
+										</div>
+									</div> 
 								</div>
 							</div> 
-
-							<div class="card">
-				        <div class="header header-info">
-				          <h2 class="title text-center">Friended By</h2>
-				        </div>
-				        
-				        <div class="content">
-									<div class="row">
-										<% if @user.inverse_friends.count == 0 %>
-											<% if @user == current_user %>
-												<h3 class="title text-center text-muted bordered border-rounded">You Have Not Been Friended By Anyone Yet!</h3>
-											<% else %>
-												<h3 class="title text-center text-muted bordered border-rounded"><%= @user.name %> Has Not Been Friended By Anyone Yet!</h3>
-												<%= render partial: "layouts/shared/add_friendship_button", locals: { friend_id: @user.id, 
-					                                                                                  	url: create_friendships_path(friend_id: @user.id), 
-					                                                                                  	button_style: "btn-friendship" } %>
-											<% end %>
-										<% else %>
-											<% @user.inverse_friends.each do |friend| %>
-												<div class="col-md-5 col-md-offset-1">
-													<div class="card card-profile card-plain">
-														<div class="col-md-5">
-															<div class="card-image">
-																<% if friend.image_file_name.nil? %>
-																	<%= image_tag(friend.picture) %>
-																<% else %>
-									                <%= link_to friend.image(:original), rel: "fancybox-thumb", :class => "fancybox-thumb margin-bottom-10", title: friend.name do %>
-									                  <%= image_tag(friend.picture) %>
-									                <% end %>
-									              <% end %>
-															</div>
-														</div>
-														<div class="col-md-7">
-															<div class="content">
-																<h4 class="card-title"><%= friend.name %> <small>( <%= friend.role.to_s.capitalize %> )</small></h4>
-																<h6 class="category text-muted">Member Since: <%= @user.created_at.strftime("%B %Y") %></h6>
-
-																<p class="card-description">
-																	<%= render partial: "layouts/shared/delete_button", locals: { object_type: "Friendship", 
-					                                                                                url: block_friendships_path(friend_id: friend.id),
-					                                                                                button_style: "btn-friendship" } %>
-																</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											<% end %>
-										<% end %>
-									</div>
-								</div> 
-							</div>
 						</div>
 					</div>
+
+					<div class="tab-pane" id="community-connections">
+						<div class="profile-body margin-bottom-20">
+		          <div id="options" class="container">
+		            <div class="row margin-bottom-10">
+		              <div class="col-md-6">
+		                <div class="text-bold text-primary">Filter By</div>
+		                <div id="filters" class="option-set btn-group" role="group" data-option-key="filter">
+		                  <a href="#filter" class="btn btn-primary btn-xs selected" data-option-value="*">Show All</a>
+		                  <a href="#filter" class="btn btn-primary btn-xs " data-option-value=".Friends">Friends</a>
+		                </div>
+		              </div>
+
+		              <div class="col-md-6">
+		                <div class="text-bold text-primary text-right">Sort By</div>
+
+		                <div id="sort-direction" class="btn-group option-set pull-right" data-option-key="sortAscending">
+		                  <a href="#sortAscending=true" class="btn btn-primary btn-xs selected" data-option-value="true">
+		                  	<i class="material-icons">arrow_upward</i>
+		                  </a>
+		                  <a href="#sortAscending=false" class="btn btn-primary btn-xs" data-option-value="false">
+		                  	<i class="material-icons">arrow_downward</i>
+		                  </a>
+		                </div>
+
+		                <div id="sort-by" class="btn-group option-set pull-right" role="group" data-option-key="sortBy">
+		                  <a href="#sortBy=random" class="shuffle btn btn-primary btn-xs" data-option-value="random">Shuffle</a>
+		                  <a href="#sortBy=sortName" class="btn btn-primary btn-xs " data-option-value="sortName">Name</a>
+		                  <a href="#sortBy=sortLastLogin" class="btn btn-primary btn-xs " data-option-value="sortLastLogin">Last Login</a>
+		                </div>
+		              </div>
+		            </div> 
+
+		            <div class="row">
+		              <div class='col-md-4'>
+		                <div class='search-box'>
+		                  <form class='search-form'>
+		                    <input class='form-control quicksearch' placeholder="Search By Name or Email..." type='text'>
+		                    <span class='search-btn'>
+		                      <i class="fa fa-search"></i>
+		                    </span>
+		                  </form>
+		                </div>  
+		              </div>
+
+		              <div class='col-md-6 pull-right'>
+		                
+		              </div>
+		            </div>
+		          </div>
+
+		          <div class="content">
+		            <div id="user-container" class="container clickable variable-sizes clearfix padding-top-50">
+		              <div class="grid-item-sizer"> </div>
+		              
+		              <% @users.each do |user| %>
+		              	<% unless current_user == user %>
+			                <div class="grid-item clearfix <%= 'Friends' if current_user.friended?(user) %>"
+			                   data-name="<%= user.name %>" 
+			                   data-email="<%= user.email %>" 
+			                   data-LastLogin="<%= user.last_login %>">
+
+			                  <div class="col-md-12">
+					    						<div class="card card-profile bg-nude-gray">
+					    							<div class="card-avatar">
+					    								<a href="#pablo">
+					    									<%= link_to user.picture, :class => "fancybox-thumb" do %>
+				                          <%= image_tag(user.picture, class: "img img-responsive") %>
+				                        <% end %>
+					    								</a>
+					    							</div>
+
+					    							<div class="content">
+					    								<h4 class="card-title">
+					    									<%= link_to public_profile_path(id: user.id) do %>
+			                            <strong><%= user.name %></strong>
+			                          <% end %>
+					    								</h4>
+					    								<h6 class="category text-gray">
+					    									<strong>Member Since: </strong> <%= @user.created_at.strftime("%b %Y") %>
+					    										
+					    								</h6>
+
+					    								<h6 class="category text-gray">
+			                           <strong>Last Seen:</strong> <%= time_ago_in_words(user.last_sign_in_at) if !user.last_sign_in_at.nil? %> ago
+					    								</h6>
+
+						    							<div class="footer">
+						    								<% if current_user.friended?(user.id) %>
+						    									<%= link_to destroy_friendships_path(friend_id: user.id), method: :post, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-fill btn-danger btn-round", rel: "tooltip", title: 'Delete Your Friendship With This User' do %>
+			                              <i class="fa fa-times"></i> Delete Friendship
+			                            <% end %>
+						    								<% else %>
+					                        <%= link_to create_friendships_path(friend_id: user.id), data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-fill btn-info btn-round" do %>
+			                              <i class="material-icons">add</i> Create Friendship
+			                            <% end %>
+						    								<% end %>
+					    								</div>
+					    							</div>
+					    						</div>
+					    					</div>
+			                </div>
+			              <% end %>
+		              <% end %>
+
+		            </div>
+		            <div class="clearfix"></div>
+		          </div> 
+		        </div>
+					</div>
 				</div>
-			</div> 
+			</div>
 		</div> 
 	</div> 
 </div>
@@ -347,4 +378,127 @@
       }
     }
   });  
+
+var $userContainer = $('#user-container');
+ 
+ // quick search regex  
+ var qsRegex;
+
+  $userContainer.isotope({
+    // set itemSelector so .grid-sizer is not used in layout
+    itemSelector: '.grid-item',
+    percentPosition: false,
+    layoutMode: 'packery',
+    // masonry: {
+    //  // use element for option
+    //  columnWidth: '.grid-image-sizer'
+    // },
+    packery: {
+      gutter: 10
+    },
+    filter: function() {
+      return qsRegex ? $(this).text().match( qsRegex ) : true;
+    },
+    getSortData: {
+      sortName: '[data-name]',
+      sortEmail: '[data-email]',
+      sortLocation: '[data-location]',
+      sortLastLogin: '[data-lastLogin]', 
+      sortLoginCount: '[data-loginCount]'
+    },
+    sortBy: "sortName"
+  });
+
+  // use value of search field to filter
+  var $quicksearch = $('.quicksearch').keyup( debounce( function() {
+    qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+    $userContainer.isotope();
+  }, 200 ) );
+
+
+// debounce so filtering doesn't happen every millisecond
+function debounce( fn, threshold ) {
+  var timeout;
+  return function debounced() {
+    if ( timeout ) {
+      clearTimeout( timeout );
+    }
+    function delayed() {
+      fn();
+      timeout = null;
+    }
+    timeout = setTimeout( delayed, threshold || 100 );
+  }
+};
+
+  var $optionSets = $('#options .option-set'),
+    $optionLinks = $optionSets.find('a');
+
+  $optionLinks.click(function () {
+    var $this = $(this);
+    console.log($this);
+    // don't proceed if already selected
+    if ($this.hasClass('selected')) {
+      console.log("Already Selected");
+      return false;
+    }
+    var $optionSet = $this.parents('.option-set');
+    console.log($optionSet);
+    $optionSet.find('.selected').removeClass('selected').removeClass('btn-fill');
+    $this.addClass('selected').addClass('btn-fill');
+
+    // make option object dynamically, i.e. { filter: '.my-filter-class' }
+    var options = {},
+    key = $optionSet.attr('data-option-key'),
+      value = $this.attr('data-option-value');
+    // parse 'false' as false boolean
+    value = value === 'false' ? false : value;
+    options[key] = value;
+    if (key === 'layoutMode' && typeof changeLayoutMode === 'function') {
+      // changes in layout modes need extra logic
+      changeLayoutMode($this, options);
+    } else {
+      // otherwise, apply new options
+      $userContainer.isotope(options);
+    }
+
+    return false;
+  });
+
+  // change layout
+  var isHorizontal = false;
+
+  function changeLayoutMode($link, options) {
+      var wasHorizontal = isHorizontal;
+      isHorizontal = $link.hasClass('horizontal');
+
+      if (wasHorizontal !== isHorizontal) {
+          // orientation change
+          // need to do some clean up for transitions and sizes
+          var style = isHorizontal ? {
+              height: '80%',
+              width: $userContainer.width()
+          } : {
+              width: 'auto'
+          };
+          // stop any animation on container height / width
+          $userContainer.filter(':animated').stop();
+          // disable transition, apply revised style
+          $userContainer.addClass('no-transition').css(style);
+          setTimeout(function () {
+              $userContainer.removeClass('no-transition').isotope(options);
+          }, 100);
+      } else {
+          $userContainer.isotope(options);
+      }
+  };
+
+  var $sortBy = $('#sort-by');
+  $('a.shuffle').click(function () {
+    $userContainer.isotope('shuffle');
+    $sortBy.find('.selected').removeClass('selected');
+    $sortBy.find('[data-option-value="random"]').addClass('selected');
+    return false;
+  });
+
 </script>

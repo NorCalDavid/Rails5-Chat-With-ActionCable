@@ -12,11 +12,12 @@ Rails.application.routes.draw do
 	end
     
   get '/profile' => 'users#profile', as: :profile
+  get '/public-profile' => 'users#public_profile', as: :public_profile
 
   resources :friendships, only: [:create, :destroy] do 
     get 'create' => 'friendships#create', as: "create", on: :collection
-    get 'block' => 'friendships#block', as: "block", on: :collection
-    get 'destroy' => 'friendships#destroy', as: "destroy", on: :member
+    post 'block' => 'friendships#block', as: "block", on: :collection
+    post 'destroy' => 'friendships#destroy', as: "destroy", on: :collection
   end
 
   resources :chatrooms do 

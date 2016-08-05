@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/profile
   def profile
-
+    @users = User.order(:name)
   end
 
   private
