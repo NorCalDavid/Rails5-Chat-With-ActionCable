@@ -1,6 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.web_socket_server_url = "wss://rails5-actioncable-chatapp.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://rails5-actioncable-chatapp.herokuapp.com', 'http://rails5-actioncable-chatapp.herokuapp.com']
+  
   # Code is not reloaded between requests.
   config.cache_classes = true
 
