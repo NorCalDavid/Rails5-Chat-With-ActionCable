@@ -287,3 +287,11 @@
         background-color: transparent;
     }
 }
+
+.nav-align-center{
+    text-align: center;
+
+    .nav-pills{
+        display: inline-block;
+    }
+}

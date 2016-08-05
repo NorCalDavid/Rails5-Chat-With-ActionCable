@@ -19,6 +19,58 @@ class User < ApplicationRecord
     self.role ||= :user
   end
 
+  has_many :friendships
+  has_many :friends, :through => :friendships
+
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+
+  has_many :blocks
+  has_many :blocked_friends, :through => :blocks, :source => :user
+
+  has_many :inverse_blocks, :class_name => "Block", :foreign_key => "friend_id"
+  has_many :inverse_blocked_friends, :through => :inverse_blocks, :source => :user
+
+  after_create :build_friendships
+
+  def build_friendships
+    if self.invited_by_id
+      self.friend(self.invited_by_id)
+      User.find(self.invited_by_id).friend(self.id)
+    end
+  end
+
+  def available_friends
+    return self.friends | self.inverse_friends
+  end
+
+  # Create Friendship with a user.
+  def friend(other_user_id)
+    friendships.create(friend_id: other_user_id)
+  end
+
+  # Destroys Friendship with a user.
+  def unfriend(other_user_id)
+    friendships.find_by(friend_id: other_user_id).destroy
+  end
+
+  # Returns true if the current user has friended the other user.
+  def friended?(other_user_id)
+    friends.include?(User.find(other_user_id))
+  end
+
+  def pending_invitations
+    return User.where(invitation_accepted_at: nil).where(invited_by_id: self.id).order(invitation_created_at: :asc)
+  end
+
+  def accepted_invitations
+    return User.where.not(invitation_accepted_at: nil).where(invited_by_id: self.id).order(invitation_created_at: :asc)
+  end
+
+  def last_login
+    self.last_sign_in_at
+  end
+
   has_attached_file :image, styles: { mini:    ["50x50>", :jpg],
                                       thumb:   ["100x100#", :jpg],
                                       small:   ["200x200#", :jpg],

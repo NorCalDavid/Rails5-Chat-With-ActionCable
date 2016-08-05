@@ -13,6 +13,12 @@ Rails.application.routes.draw do
     
   get '/profile' => 'users#profile', as: :profile
 
+  resources :friendships, only: [:create, :destroy] do 
+    get 'create' => 'friendships#create', as: "create", on: :collection
+    get 'block' => 'friendships#block', as: "block", on: :collection
+    get 'destroy' => 'friendships#destroy', as: "destroy", on: :member
+  end
+
   resources :chatrooms do 
     resources :messages, only: [:create, :destroy]
     resource :chatroom_users 
