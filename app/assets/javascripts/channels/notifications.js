@@ -15,10 +15,6 @@ App.notifications = App.cable.subscriptions.create("NotificationsChannel", {
   	$("#notification-icon").html('notifications_active');
   	$("#notification-count").html(data.count);
   	$("#notification-count").show();
-  	sweetAlert({ title: "Success", 
-                text: 'You Have Received a New Notification!',
-                type: "success",
-              timmer: 2000 });
   }
 
 });
