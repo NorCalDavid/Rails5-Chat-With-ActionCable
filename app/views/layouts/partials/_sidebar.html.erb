@@ -63,11 +63,12 @@ Tip 2: you can change the color of the active button using the data-active-color
 								<% current_user.chatrooms.each do |chatroom| %>
 									<li><%= link_to "#{chatroom.name}", main_app.chatroom_path(chatroom) %></li>
 								<% end %>
-							<li><%= link_to "View All Chatrooms", main_app.chatrooms_path %>
 							<% end %>
 						</ul>
 					</div>
 				</li>
+
+				<li><%= link_to "View All Chatrooms", main_app.chatrooms_path %>
 			<% end %>
 		</ul>
 	</div>
