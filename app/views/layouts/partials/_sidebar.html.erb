@@ -58,14 +58,12 @@ Tip 2: you can change the color of the active button using the data-active-color
 						<ul class="nav">
 							<% if current_user.chatrooms.count == 0 %>
 								<li class="text-center text-warning dropdown-header"><h5>You Have Not Joined<br/>Any Chatrooms</h5></li>
-								
-								<li><%= link_to "View All Chatrooms", main_app.chatrooms_path %>
-										
 								</li>
 							<% else %>
 								<% current_user.chatrooms.each do |chatroom| %>
 									<li><%= link_to "#{chatroom.name}", main_app.chatroom_path(chatroom) %></li>
 								<% end %>
+							<li><%= link_to "View All Chatrooms", main_app.chatrooms_path %>
 							<% end %>
 						</ul>
 					</div>
