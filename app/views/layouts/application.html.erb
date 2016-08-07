@@ -72,9 +72,9 @@
 					    <%= yield %>
 
               <script>
-              function notificationAlert() {
+              function notificationAlert(color, message) {
                 var options = { theme: 'NoticeBorder',
-                                color: 'blue',
+                                color: color,
                                 position: { x: 'left',
                                             y: 'bottom' },
                                 offset: { x: 25,
@@ -83,7 +83,7 @@
                                 fade: 300,
                                 closeOnESC: true,
                                 zIndex: 99,
-                                content: "You Received a New Notification" };
+                                content: message };
 
                 new jBox('Notice', options);
               }

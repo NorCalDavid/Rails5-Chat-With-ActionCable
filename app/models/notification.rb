@@ -30,7 +30,8 @@ class Notification < ApplicationRecord
     if self.notifiable.nil?
       html = ApplicationController.render partial: "notifications/notification", locals: {notification: self}, formats: [:html]
       count = self.recipient.notifications.unread.count
-      ActionCable.server.broadcast "notifications:#{self.recipient_id}", html: html, count: count
+      message = "#{self.actor.name} #{self.action} you #{ time_ago_in_words(self.created_at) }"
+      ActionCable.server.broadcast "notifications:#{self.recipient_id}", html: html, count: count, message: message
     else
       html = ApplicationController.render partial: "notifications/#{self.notifiable_type.underscore.pluralize}/#{self.action}", locals: {notification: self}, formats: [:html]
       count = self.recipient.notifications.unread.count
