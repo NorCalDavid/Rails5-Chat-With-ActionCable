@@ -68,7 +68,11 @@ Tip 2: you can change the color of the active button using the data-active-color
 					</div>
 				</li>
 
-				<li><%= link_to "View All Chatrooms", main_app.chatrooms_path %>
+				<li>
+					<%= link_to main_app.chatrooms_path do %>
+						<i class="ti-menu-alt"></i> 
+						<p>View All Chatrooms</p>
+					<% end %>
 			<% end %>
 		</ul>
 	</div>
