@@ -74,7 +74,7 @@
               <script>
               function notificationAlert(color, message) {
                 var options = { theme: 'NoticeBorder',
-                                color: color,
+                                color: 'blue',
                                 position: { x: 'left',
                                             y: 'bottom' },
                                 offset: { x: 25,
@@ -83,7 +83,7 @@
                                 fade: 300,
                                 closeOnESC: true,
                                 zIndex: 99,
-                                content: message };
+                                content: "You Received a New Notification" };
 
                 new jBox('Notice', options);
               }
