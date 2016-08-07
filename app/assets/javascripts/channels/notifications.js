@@ -16,7 +16,7 @@ App.notifications = App.cable.subscriptions.create("NotificationsChannel", {
     $("#notification-count").html(data.count);
     $("#notification-count").show();
     notificationAlert(data.color, data.message);
-    console.log(data.color);
+    console.log("Test");
     console.log(data.message);
   }
 
